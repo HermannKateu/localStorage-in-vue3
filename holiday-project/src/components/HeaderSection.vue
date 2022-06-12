@@ -2,7 +2,7 @@
     <header class="flex flex-col p-4 gap-y-4 bg-white md:br-gray-400 shadow-lg shadow-gray-200 md:h-32">
         <div class="flex justify-between block md:hidden">
             <span class="font-Roboto font-semibold text-2xl"> {{ currentTime }} </span>
-            <SvgCollection />
+            <!-- <SvgCollection /> -->
         </div>
         <div class="flex justify-between p-2 font-WorkSans">
             <div  :class="!isLogin && 'styleTitle'">
