@@ -87,9 +87,7 @@ const loginUser = () => {
   if(formValues.email === Retreive_Form_Data.email && formValues.password === Retreive_Form_Data.password){
     return router.push("/home");
   }
-  else{
-   return isUserDataCorrect.value = true;
-  }
+  else return isUserDataCorrect.value = true;
 };
 
 </script>

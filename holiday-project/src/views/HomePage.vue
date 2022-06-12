@@ -22,7 +22,7 @@
             </div>
             <div class="relative my-4 md:w-6/12">
                 <MainButton label="Liste des conges" class="bg-white-100 h-14 text-blue-100 rounded-md font-semibold flex flex-col justify-center text-base"
-                @click="getRandomPage(2)"
+                @click="getRandomPage()"
                 />
                 <BlueList class="w-6 h-7 absolute top-3 left-3" fill="blue"/>
             </div>
@@ -38,12 +38,8 @@ import MainButton from "../components/MainButton.vue";
 import BlueList from "../assets/Holidays-Icons/BlueList.vue";
 import { router } from "../router";
 
-const getRandomPage = (max) => {
-  let randomNumber = Math.floor(Math.random() * max);
-  if(randomNumber === 1){
-    return router.push("/holiday-list");
-  }
-  else return router.push("/empty-holiday");
+const getRandomPage = () => {
+   return router.push("/holiday-list");
 }
 
 </script>
