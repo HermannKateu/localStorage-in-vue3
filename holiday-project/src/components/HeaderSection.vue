@@ -1,9 +1,5 @@
 <template>
     <header class="flex flex-col p-4 gap-y-4 bg-white md:br-gray-400 shadow-lg shadow-gray-200 md:h-32">
-        <div class="flex justify-between block md:hidden">
-            <span class="font-Roboto font-semibold text-2xl"> {{ currentTime }} </span>
-            <!-- <SvgCollection /> -->
-        </div>
         <div class="flex justify-between p-2 font-WorkSans">
             <div  :class="!isLogin && 'styleTitle'">
                <h1 class="text-gray-300 font-bold  text-4xl leading-tight md:flex md:items-center md:text-5xl">Logo</h1>
@@ -16,7 +12,6 @@
 
 <script setup>
 import ContactIcon from "../assets/Holidays-Icons/ContactIcon.vue";
-import SvgCollection from "./SvgCollection.vue";
 import { isLogin } from "../store/loginStore.ts";
 
 const today = new Date();
