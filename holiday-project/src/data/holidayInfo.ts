@@ -1,5 +1,3 @@
-import { endianness } from "os";
-
 export const holidayInfo = [
     {
         starting: "Il y’a un jour",

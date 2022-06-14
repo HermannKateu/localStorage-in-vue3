@@ -9,15 +9,15 @@
             <h1 class="text-center text-2xl font-semibold md:text-4xl">
                 SignUp
             </h1>
-            <EmailInput v-model.trim="sinUpData.email" class="w-full"/>
-             <PasswordInput v-model.trim="sinUpData.password" class="w-full"/>
+            <EmailInput v-model.trim="sinUpData.email" class="w-full" data-test="email-unput"/>
+             <PasswordInput v-model.trim="sinUpData.password" class="w-full" data-test="password-input"/>
              <label for="age" class="text-gray-300 text-lg font-WorkSans">
                 Age
              </label>
             <input type="number" class="h-[55px] outline-none text-base border my-2 border-gray-500 pl-5 rounded-md
               focus:border-gray-700  ease-in-out duration-500  bg-gray-100 shadow-sm shadow-gray-200 hover:shadow-gray-600 
               hover:shadow-xl md:h-16 border border-gray md:text-xl"
-               placeholder="Enter age" v-model.trim="sinUpData.age" min="1" max="100">   
+               placeholder="Enter age" v-model.trim="sinUpData.age" min="1" max="100" data-test="age-input">   
             <div class="flex gap-x-12">
                 <label for="sex" class="text-base text-gray-500">Male
                    <input type="radio" name="sex" id="male" class="w-4 h-4 focus:animate-spin" value="Male" v-model="sinUpData.sex">
@@ -28,7 +28,8 @@
             </div>
             <MainButton label="SUBMIT" class="text-base text-white bg-blue-800 w-full
               h-12 font-bold rounded-md shadow-lg shadow-blue-400 flex 
-             hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-14 md:text-xl" @click="submitForm" />
+             hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-14 md:text-xl" @click="submitForm" 
+             data-test="submit-button"/>
         </form>
     </div>
 </template>
@@ -41,7 +42,7 @@ import EmailInput from "../components/EmailInput.vue";
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
 
-
+let allUsers = [];
 const ownAccount = ref(false);
 const sinUpData = reactive({
   email: "",
@@ -65,10 +66,11 @@ const accountExist = () => {
        localStorage.setItem(FORM_DATA ,JSON.stringify(sinUpData));
         router.push("/home"); 
     }
-    else if(localStorage.length){
-        localStorage.setItem(FORM_DATA ,JSON.stringify(sinUpData));
-        router.push("/home");
-    }
+    // else if(localStorage.length > 0 || sinUpData.email !== checkData.email){
+    //     localStorage.setItem(FORM_DATA ,JSON.stringify(sinUpData));
+    //     router.push("/home");
+    // }
+
     else if(sinUpData.email === checkData.email){
        return ownAccount.value = true;
     }

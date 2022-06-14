@@ -84,6 +84,7 @@ const submitForm = () => {
 
 const loginUser = () => {
   const Retreive_Form_Data = JSON.parse(localStorage.getItem(FORM_DATA));
+  
   if(formValues.email === Retreive_Form_Data.email && formValues.password === Retreive_Form_Data.password){
     return router.push("/home");
   }

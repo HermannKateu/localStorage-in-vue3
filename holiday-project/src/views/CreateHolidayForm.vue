@@ -10,22 +10,23 @@
                 </span>
             </div>
             <div class="flex flex-wrap gap-x-10 gap-y-3">
-                <SelectHoliday class="md:w-8/12"/>
+                <SelectHoliday class="md:w-8/12" data-test="select-holiday"/>
                 <div class="w-5/12 grow md:w-3/12">
-                   <DateInput labelValues="Starting date" v-model="date.starting"/>
+                   <DateInput labelValues="Starting date" v-model="date.starting" data-test="starting-date" />
                 </div>
                 <div class="w-5/12 grow md:w-3/12">
-                    <DateInput labelValues="Ending date" v-model="date.ending"/>
+                    <DateInput labelValues="Ending date" v-model="date.ending" data-test="ending-date"/>
                 </div>
                 <div class="w-5/12 grow md:w-3/12">
-                    <NumberInput  class="w-full" v-model="date.numberOfDays"/>
+                    <NumberInput  class="w-full" v-model="date.numberOfDays" data-test="numDays"/>
                 </div>
                 <div class="w-5/12 grow md:w-3/12">
-                   <DateInput labelValues="Return date" v-model="date.return"/>
+                   <DateInput labelValues="Return date" v-model="date.return" data-test="return-date"/>
                 </div>
             </div>
-            <DescriptionArea class="my-6 md:my-10"/>
-            <MainButton label="SUBMIT" class="bg-blue-100 my-6 h-14 mx-auto text-white font-bold rounded-md flex text-lg md:text-xl md:my-14"/>
+            <DescriptionArea class="my-6 md:my-10" data-test="describe"/>
+            <MainButton label="SUBMIT" class="bg-blue-100 my-6 h-14 mx-auto text-white font-bold rounded-md flex text-lg md:text-xl md:my-14"
+            data-test="submit-button"/>
         </form>
     </div>
 </template>
