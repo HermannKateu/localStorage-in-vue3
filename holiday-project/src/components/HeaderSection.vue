@@ -1,7 +1,7 @@
 <template>
     <header class="flex flex-col p-4 gap-y-4 bg-white md:br-gray-400 shadow-lg shadow-gray-200 md:h-32">
         <div class="flex justify-between p-2 font-WorkSans">
-            <div  :class="!isLogin && 'style-header'" data-test="contact">
+            <div :class="!isLogin && 'style-header'" data-test="contact">
                <h1 class="text-gray-300 font-bold  text-4xl leading-tight md:flex md:items-center md:text-5xl">Logo</h1>
                <span class="text-gray-700 text-sm md:text-lg" v-show="isLogin"> {{ currentDate }} </span>
             </div>

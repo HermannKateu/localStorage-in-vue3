@@ -10,7 +10,7 @@
                 </span>
             </div>
             <div class="flex flex-wrap gap-x-10 gap-y-3">
-                <SelectHoliday class="md:w-8/12" data-test="select-holiday"/>
+                <SelectHoliday class="md:w-8/12"/>
                 <div class="w-5/12 grow md:w-3/12">
                    <DateInput labelValues="Starting date" v-model="date.starting" data-test="starting-date" />
                 </div>

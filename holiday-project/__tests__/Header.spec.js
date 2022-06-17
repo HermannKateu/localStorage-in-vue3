@@ -3,18 +3,17 @@ import HeaderSection from "../src/components/HeaderSection.vue";
 import { isLogin } from "../src/store/loginStore";
 
 describe("HeaderSection", () => {
-    const store = isLogin;
-    const wrapper = mount(HeaderSection, {
-        global: {
-            plugins: [store]
-        }
-    });
+    const wrapper = mount(HeaderSection);
 
     it("should renders correctly", () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    it("it desactivate the close on login prevent", () => {
-        
+    it("should desactivate the style-header class on login prevent", () => {
+        expect(wrapper.classes()).not.toContain("style-header");
     });
+
+    // it("should activate the style-header class when login succed", () => {
+    //     expect(wrapper.classes()).toContain("style-header");
+    // });
 });

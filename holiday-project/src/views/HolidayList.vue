@@ -3,15 +3,15 @@
         <div class="flex justify-between relative">
             <h1 class="text-gray-800 font-semibold text-3xl">Holidays</h1>
             <router-link to="/create-holiday">
-                <span class="text-gray-50 font-medium text-5xl block md:hidden absolute right-0 -top-2">+</span>
+                <span class="text-gray-50 font-medium text-5xl block md:hidden absolute right-0 -top-2" data-test='holiday-form'>+</span>
             </router-link>
             <router-link to="/create-holiday">
-                <MainButton label="Create holiday" class="bg-blue-100 hidden h-14 text-lg w-60 text-white rounded-md py-4 md:block"/>
+                <MainButton label="Create holiday" class="bg-blue-100 hidden h-14 text-lg w-60 text-white rounded-md py-4 md:block"  data-test='holiday-form'/>
             </router-link>
         </div>
         <div class="flex gap-y-12 flex-col md:flex-row md:flex-wrap md:gap-x-16 md:w-full md:mx-auto">
             <router-link :to="`/holiday-item/${index}`" class="grow" v-for="(holiday,index) in holidayInfo" :key="index">
-                <HolidaysCard :holiday="holiday" />
+                <HolidaysCard :holiday="holiday" data-test="holiday-card"/>
             </router-link>
         </div>
     </div>

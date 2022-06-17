@@ -6,5 +6,4 @@ describe("LoginPage", ()  => {
     it("should renders correctly", () => {
         expect(wrapper.exists()).toBe(true);
     });
-    
 });
