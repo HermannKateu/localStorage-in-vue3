@@ -98,6 +98,7 @@ describe('HolidayPage', () => {
 
         it("and does to the holiday form", () => {
           cy.get("[data-test='create-holiday']").click();
+          cy.url("eq", "http://localhost:3000/create-holiday")
           cy.get("[data-test='select-holiday']").select("Martenite").should("have.value", "Martenite");
           cy.get("[data-test='starting-date']").type("2022-06-17");
           cy.get("[data-test='ending-date']").type("2022-06-17");
