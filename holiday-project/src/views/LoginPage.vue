@@ -28,13 +28,13 @@
         </div>
         <a href="#" target="_blank" class="underline text-blue-100 text-base font-WorkSans ">Forgot password ?</a>
       </div>
-        <MainButton label="LOGIN" class="text-xl shadow-2xl shadow-blue-600 my-12 flex flex-col justify-center items-center font-bold bg-blue-100
-          font-WorkSans uppercase rounded-md  w-full text-center text-white h-14 md:h-16" 
-          @click="submitForm" data-test="login-button"/>
-        <router-link to="/sign-up" class="underline decoration-2 text-xl font-bold text-blue-100 font-WorkSans flex justify-end mb-8"
-         data-test-id="sign-up-button">
-          SignUp
-        </router-link>
+      <MainButton label="LOGIN" class="text-xl shadow-2xl shadow-blue-600 my-12 flex flex-col justify-center items-center font-bold bg-blue-100
+        font-WorkSans uppercase rounded-md  w-full text-center text-white h-14 md:h-16" 
+        @click="submitForm" data-test="login-button"/>
+      <router-link to="/sign-up" class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm"
+        data-test-id="sign-up-button">
+        SignUp
+      </router-link>
     </form>
   </div>
 </template>
@@ -77,18 +77,21 @@ const submitForm = () => {
   else{
     formValues.emailError = false;
     formValues.passwordError = false;
-    isLogin.value = true;
     return loginUser();
   }
 }
 
 const loginUser = () => {
   const Retreive_Form_Data = JSON.parse(localStorage.getItem(FORM_DATA));
-  
-  if(formValues.email === Retreive_Form_Data.email && formValues.password === Retreive_Form_Data.password){
+  if(formValues.email !== Retreive_Form_Data.email && formValues.password !== Retreive_Form_Data.password){
+    isLogin.value = false;
+    return isUserDataCorrect.value = true;
+  }
+    
+ else if(formValues.email === Retreive_Form_Data.email && formValues.password === Retreive_Form_Data.password){
+    isLogin.value = true;
     return router.push("/home");
   }
-  else return isUserDataCorrect.value = true;
 };
 
 </script>

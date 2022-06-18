@@ -25,5 +25,8 @@ defineProps({
 </script>
 
 <style scoped>
-
+input:focus{
+    border: 2px solid rgb(95, 95, 95);
+    caret-color: blue;
+}
 </style>

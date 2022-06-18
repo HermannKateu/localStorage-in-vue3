@@ -41,9 +41,8 @@ import { FORM_DATA } from "../store/loginStore.ts";
 import EmailInput from "../components/EmailInput.vue";
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import { isLogin } from "../store/loginStore"
+import { isLogin, allUsers } from "../store/loginStore";
 
-let allUsers = [];
 const ownAccount = ref(false);
 const singUpData = reactive({
   email: "",
@@ -62,10 +61,15 @@ const submitForm = () => {
 const accountExist = () => {
     const checkData = JSON.parse(localStorage.getItem(FORM_DATA));
     if(localStorage.length === 0){
-       localStorage.setItem(FORM_DATA ,JSON.stringify(singUpData));
+       localStorage.setItem(FORM_DATA, JSON.stringify(singUpData));
        isLogin.value = true;
-        router.push("/home"); 
+       return router.push("/home"); 
     }
+    // else if(localStorage.length > 0 || singUpData.email !== checkData.email){
+    //    localStorage.setItem(FORM_DATA, JSON.stringify(singUpData));
+    //    isLogin.value = true;
+    //    return router.push("/home");
+    // }
     else if(singUpData.email === checkData.email){
        return ownAccount.value = true;
     }
