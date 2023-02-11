@@ -1,7 +1,7 @@
 <template>
   <div>
-    <HeaderSection class="sticky top-0 z-10"/>
-    <router-view class="z-30"></router-view>
+    <HeaderSection class="sticky top-0 z-10" />
+      <router-view class="z-30"></router-view>
   </div>
 </template>
 

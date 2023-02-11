@@ -37,13 +37,13 @@
 // }
 
 Cypress.Commands.add("setItem", (key, value) => {
-    cy.window().then((window) => {
-        window.localStorage.setItem(key, value);
-    });
+  cy.window().then((window) => {
+    window.localStorage.setItem(key, value);
+  });
 });
 
 Cypress.Commands.add("getItem", (key, value) => {
-    cy.window().then((window) => {
-        window.localStorage.getItem(key, value);
-    });
+  cy.window().then((window) => {
+    window.localStorage.getItem(key, value);
+  });
 });

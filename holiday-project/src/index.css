@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .scroll {
+    @apply overflow-y-auto;
+  }
+
+  .scroll::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-[20px];
+  }
+
+  .scroll::-webkit-scrollbar-track {
+    @apply rounded-[20px] bg-gray-50;
+  }
+
+  .scroll::-webkit-scrollbar {
+    @apply w-[5px] rounded-[20px];
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+}
