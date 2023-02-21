@@ -1,11 +1,11 @@
 import { ref } from "vue";
 
 export const isLogin = ref(false);
-export const show = ref(true);
 export const FORM_DATA = "form";
 
 export type User = {
     password: string;
+    confirmPassword?: string;
     email: string;
     firstname?: string,
     lastname?: string,
@@ -15,5 +15,7 @@ export type User = {
 export const  currentUser = ref<User>({
     password: "",
     email: "",
+    lastname: "",
+    firstname: ""
 })
 export let allUsers:User[] = [];

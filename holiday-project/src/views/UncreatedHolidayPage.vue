@@ -15,13 +15,12 @@
       <h2 class="text-gray-300 font-semibold text-base text-center md:text-xl">
         No holiday has been created
       </h2>
-      <router-link to="/create-holiday">
         <MainButton
+            @click="goTo"
           label="Create holiday"
           class="mx-auto w-6/12 text-white bg-blue-100 h-12 font-bold text-lg flex rounded-md md:w-4/12 md:text-xl"
           data-test="create-holiday-button"
         />
-      </router-link>
     </div>
   </div>
 </template>
@@ -29,6 +28,10 @@
 <script setup>
 import MainButton from "../components/MainButton.vue";
 import NoHoliday from "../assets/holidays-foto/NoHoliday.vue";
-</script>
+import {useRouter} from "vue-router";
 
-<style scoped></style>
+const router = useRouter();
+const goTo = () => {
+  router.push("/create-holiday");
+}
+</script>

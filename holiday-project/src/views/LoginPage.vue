@@ -7,13 +7,13 @@
       v-show="isUserDataCorrect"
       data-test="login-error-msg"
     >
-      Sorry but it seems you do not apprear to have an account
-      please<router-link
-        to="/sign-up"
+      Sorry but it seems you do not appear to have an account
+      please<span
+        @click="goToSignUpPage"
         class="pl-1 text-blue-200 underline text-sm md:text-lg"
       >
         SignUp
-      </router-link>
+      </span>
     </div>
     <form
       class="px-4 w-full flex flex-col mx-auto md:px-8 md:border md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px]"
@@ -26,36 +26,22 @@
           Login
         </h1>
         <h3 class="text-base">
-          Login into your account to see your personal iinformations.
+          Login into your account to see your personal information.
         </h3>
       </div>
-      <div class="flex flex-col gap-y-5">
-        <div class="flex flex-col gap-y-1">
-          <EmailInput
-            v-model="formValues.email"
-            class="w-full"
-            data-test-id="email"
+      <div class="flex flex-col gap-y-4">
+          <TextInput
+              label="Email"
+              placeholder="Enter your email..."
+              v-model="formValues.email"
+              :errors="v$.email.$errors"
           />
-          <span
-            v-show="formValues.emailError"
-            class="flex text-lg text-red-900"
-            data-test="email-error-msg"
-            >Please fill in the require Email field !!!!!</span
-          >
-        </div>
-        <div class="flex flex-col gap-1">
           <PasswordInput
             v-model="formValues.password"
             class="w-full"
             data-test-id="password"
+            :errors="v$.password.$errors"
           />
-          <span
-            v-show="formValues.passwordError"
-            class="flex text-lg text-red-900"
-            data-test="password-error-msg"
-            >Please fill in the require Password field !!!!!</span
-          >
-        </div>
       </div>
       <div class="flex justify-between my-4 font-WorkSans">
         <div class="text-gray text-base flex gap-x-3">
@@ -63,8 +49,7 @@
           <span>Remember me !</span>
         </div>
         <a
-          href="\"
-          target="/"
+          href="#"
           class="underline text-blue-100 text-base font-WorkSans"
           >Forgot password ?</a
         >
@@ -75,40 +60,52 @@
         @click="submitForm"
         data-test="login-button"
       />
-      <router-link
-        to="/sign-up"
-        class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm"
-        data-test-id="sign-up-button"
+      <span
+          @click="goToSignUpPage"
+          class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm"
+          data-test-id="sign-up-button"
       >
         SignUp
-      </router-link>
+      </span>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import EmailInput from "../components/EmailInput.vue";
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
 import {isLogin, User} from "../store/loginStore";
 import { reactive, ref } from "@vue/runtime-core";
 import { FORM_DATA } from "../store/loginStore";
 import {useRouter} from "vue-router";
+import TextInput from "../components/TextInput.vue";
+import useVuelidate from "@vuelidate/core";
+import {email, helpers, minLength, required} from "@vuelidate/validators";
 
 const isUserDataCorrect = ref(false);
+const router = useRouter();
 
-const formValues = reactive({
+const loginInformation = reactive<User>({
   email: "",
   password: "",
-  emailError: false,
-  passwordError: false,
 });
 
-const toSignUpPage = () => {
-  return router.push("/sign-up");
+const rules = {
+    email: {
+      required: helpers.withMessage("your email is required here", required),
+      email
+    },
+  password: {
+    required: helpers.withMessage("your password is required here", required),
+    minLength: minLength(8),
+  },
+}
+
+const goToSignUpPage = () => {
+   router.push("/sign-up");
 };
 
-const router = useRouter();
+const v$ = useVuelidate(rules, loginInformation);
 const submitForm = () => {
   if (formValues.email === "" && formValues.password === "") {
     formValues.emailError = true;
@@ -128,6 +125,7 @@ const submitForm = () => {
 
 const loginUser = () => {
   const users: User[] = JSON.parse(localStorage.getItem(FORM_DATA) as string)
+  console.log(users)
   if (
     formValues.email !== users.email &&
     formValues.password !== users.password
