@@ -9,15 +9,15 @@
       data-test="select-holiday"
     >
       <option value="">Choose your holiday's type..</option>
-      <option value="Annual" class="option">Annual</option>
-      <option value="Martenite">Martenite</option>
-      <option value="Absence">Absence</option>
-      <option value="Absence">Absence</option>
+      <option value="Annual" class="option"></option>
+      <option value="Martenite"></option>
+      <option value="Absence"></option>
+      <option value="Absence"></option>
     </select>
   </div>
 </template>
-
-<script setup></script>
+<script setup>
+</script>
 
 <style scoped>
 option {

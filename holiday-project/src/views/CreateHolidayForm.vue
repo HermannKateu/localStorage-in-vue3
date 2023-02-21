@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen flex md:bg-gray-900">
+  <div class="bg-gray-100 h-screen flex md:bg-gray-200">
     <form
       class="px-4 pt-4 max-w-[900px] md:m-auto md:bg-white md:rounded-lg md:px-16"
     >
@@ -12,7 +12,7 @@
         </span>
       </div>
       <div class="flex flex-wrap gap-x-10 gap-y-3">
-        <SelectHoliday class="md:w-8/12" />
+        <SelectOption placeholder="Choose your holiday Type" v-model="date.ending" label="Type" :options="holidayOptions" class="md:w-8/12"/>
         <div class="w-5/12 grow md:w-3/12">
           <DateInput
             labelValues="Starting date"
@@ -52,31 +52,23 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import MainButton from "../components/MainButton.vue";
 import DescriptionArea from "../components/DescriptionArea.vue";
-import SelectHoliday from "../components/SelectHoliday.vue";
 import DateInput from "../components/DateInput.vue";
 import NumberInput from "../components/NumberInput.vue";
-import { reactive, watch } from "vue";
+import { reactive, computed } from "vue";
+import SelectOption from "../components/SelectOption.vue";
+import {holidayOptions} from "../utils/data";
+
+const numberOfDays = computed<number>(() => {
+  return 3
+})
 
 const date = reactive({
   starting: "",
   ending: "",
-  numberOfDays: null,
+  numberOfDays: numberOfDays.value,
   return: "",
 });
-
-// watch([date.starting,date.ending], (newDates,oldDates) => {
-//     if(oldDates[0] === "" || oldDates[1] === ""){
-//         date.numberOfDays = 0;
-//     }
-//     else{
-//         console.log(typeof oldDates[0]);
-
-//         date.numberOfDays = Math.ceil(Math.abs(new Date(newDates[1]) - new Date(oldDates[0])) / (1000 * 60 * 60 * 24));
-//     }
-// });
 </script>
-
-<style scoped></style>
