@@ -17,7 +17,7 @@
     </div>
     <form
       class="px-4 w-full flex flex-col mx-auto md:px-8 md:border md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px]"
-      @submit.prevent="submitForm"
+      @submit.prevent="loginUser"
     >
       <div
         class="flex text-gray-800 flex-col font-WorkSans gap-y-1 pt-16 mb-4 md:items-center md:pt-18 md:gap-y-0"
@@ -33,11 +33,11 @@
           <TextInput
               label="Email"
               placeholder="Enter your email..."
-              v-model="formValues.email"
+              v-model="loginInformation.email"
               :errors="v$.email.$errors"
           />
           <PasswordInput
-            v-model="formValues.password"
+            v-model="loginInformation.password"
             class="w-full"
             data-test-id="password"
             :errors="v$.password.$errors"
@@ -57,7 +57,6 @@
       <MainButton
         label="LOGIN"
         class="text-xl shadow-sm shadow-blue-600 my-12 flex flex-col justify-center items-center font-bold bg-blue-100 font-WorkSans uppercase rounded-md w-full text-center text-white h-12"
-        @click="submitForm"
         data-test="login-button"
       />
       <span
@@ -106,38 +105,20 @@ const goToSignUpPage = () => {
 };
 
 const v$ = useVuelidate(rules, loginInformation);
-const submitForm = () => {
-  if (formValues.email === "" && formValues.password === "") {
-    formValues.emailError = true;
-    formValues.passwordError = true;
-  } else if (formValues.email === "") {
-    formValues.emailError = true;
-    formValues.passwordError = false;
-  } else if (formValues.password === "") {
-    formValues.emailError = false;
-    formValues.passwordError = true;
-  } else {
-    formValues.emailError = false;
-    formValues.passwordError = false;
-    return loginUser();
-  }
-};
 
-const loginUser = () => {
+const loginUser = async (): Promise<void> => {
   const users: User[] = JSON.parse(localStorage.getItem(FORM_DATA) as string)
-  console.log(users)
-  if (
-    formValues.email !== users.email &&
-    formValues.password !== users.password
-  ) {
-    isLogin.value = false;
-    return (isUserDataCorrect.value = true);
-  } else if (
-    formValues.email === users.email &&
-    formValues.password === users.password
-  ) {
-    isLogin.value = true;
-    return router.push("/home");
+  const isFormValid = await v$.value.$validate();
+  if (isFormValid){
+    if (users.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
+        isLogin.value = true;
+        await router.push("/home");
+        return;
+    }
+    else {
+      isLogin.value = false;
+      isUserDataCorrect.value = true;
+    }
   }
 };
 </script>

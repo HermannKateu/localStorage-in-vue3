@@ -11,9 +11,6 @@
         />
         <div :class="!isLogin && 'style-header'" data-test="contact">
           <img src="src/assets/holidays-foto/logo.png" class="w-10 h-10 md:w-20 md:h-20 rounded-full flex bottom-3" alt="logo-image"/>
-          <span class="text-gray-700 text-sm md:text-lg" v-show="isLogin">
-            {{ currentDate }}
-          </span>
         </div>
       </div>
       <UserInitials
@@ -48,8 +45,6 @@ import LogoutIcon from "../assets/Holidays-Icons/LogoutIcon.vue";
 import { useRouter } from "vue-router";
 import UserInitials from "./UserInitials.vue";
 
-const today = new Date();
-const currentDate = today.toDateString();
 const shouldLogout = ref(false);
 const router = useRouter();
 
