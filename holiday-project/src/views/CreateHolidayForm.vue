@@ -84,7 +84,9 @@ import useVuelidate from "@vuelidate/core";
 import {helpers, required} from "@vuelidate/validators";
 import {holidays} from "../store/loginStore";
 import SuccessIcon from "../assets/Holidays-Icons/SuccessIcon.vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 defineProps({
   show: {
     type: Boolean,
@@ -166,6 +168,7 @@ const submitForm = async (): Promise<void> => {
       });
       v$.value.$reset();
       emit("closeModal");
+      router.push("/holiday-list");
     }, 2000);
   }
   return;

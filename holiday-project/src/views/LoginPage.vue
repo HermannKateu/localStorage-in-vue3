@@ -81,6 +81,7 @@ import TextInput from "../components/TextInput.vue";
 import useVuelidate from "@vuelidate/core";
 import {email, helpers, minLength, required} from "@vuelidate/validators";
 import WarningIcon from "../assets/Holidays-Icons/WarningIcon.vue";
+import {onBeforeMount} from "vue";
 
 const isUserDataCorrect = ref(false);
 const router = useRouter();
@@ -106,14 +107,16 @@ const goToSignUpPage = (): void => {
 };
 
 const v$ = useVuelidate(rules, loginInformation);
-
+const users = ref<User[]>([])
+onBeforeMount(() => {
+   users.value = JSON.parse(localStorage.getItem(FORM_DATA) as string)
+})
 const loginUser = async (): Promise<void> => {
-  const users: User[] = JSON.parse(localStorage.getItem(FORM_DATA) as string)
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
-    if (users.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
+    if (users.value?.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
         isLogin.value = true;
-        currentUser.value = users.find(user => user.email === loginInformation.email) as User;
+        currentUser.value = users.value.find(user => user.email === loginInformation.email) as User;
         await router.push("/home");
         return;
     }

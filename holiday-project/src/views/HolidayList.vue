@@ -20,24 +20,35 @@
       </router-link>
     </div>
     <div
-      class="flex gap-y-12 flex-col md:flex-row md:flex-wrap md:gap-x-16 md:w-full md:mx-auto"
+      class="flex gap-y-5 flex-col md:flex-row md:flex-wrap md:gap-x-10 md:w-full md:mx-auto w-full"
     >
-      <router-link
-        :to="`/holiday-item/${index}`"
-        class="grow"
-        v-for="(holiday, index) in holidayInfo"
-        :key="index"
-      >
-        <HolidaysCard :holiday="holiday" data-test="holiday-card" />
-      </router-link>
+        <HolidaysCard
+            v-for="(holiday, index) in allHolidays"
+            :holiday="holiday"
+            class="max-w-[360px] grow cursor-pointer"
+            data-test="holiday-card"
+            :key="index"
+            @click="goTo(index)"
+        />
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HolidaysCard from "../components/HolidaysCard.vue";
 import MainButton from "../components/MainButton.vue";
-import { holidayInfo } from "../data/holidayInfo";
-</script>
+import {computed, onBeforeMount, ref} from "vue";
+import type {HolidayInfo} from "../utils/type";
+import {useRouter} from "vue-router";
 
-<style scoped></style>
+const router = useRouter();
+const allHolidays = ref<HolidayInfo[]>([])
+onBeforeMount(() => {
+  allHolidays.value = JSON.parse(localStorage.getItem("allHolidays") as string);
+})
+
+const holidays = computed(() => allHolidays.value);
+const goTo = async (id: string): Promise<void> => {
+  await router.push(`/holiday-item/${id}`)
+}
+</script>

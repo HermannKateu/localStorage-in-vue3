@@ -4,14 +4,14 @@
   >
     <div class="flex flex-row justify-between text-gray text-sm font-medium">
       <span data-test="starting-date">
-        {{ holiday.starting }}
+        Il ya de cela {{ daysSinceCreation }} jour(s)
       </span>
       <span data-test="time">
-        {{ holiday.time }}
+        {{ holiday.creationDate }}
       </span>
     </div>
     <div class="text-blue-100 font-bold text-xl" data-test="date">
-      {{ holiday.date }}
+      {{ `${dayjs(holiday.starting).format("MMMM, D")} - ${dayjs(holiday.ending).format("MMMM, D")}` }}
     </div>
     <span class="text-gray-700 text-sm" data-test="description">
       {{ holiday.description }}
@@ -21,20 +21,22 @@
       type="submit"
       data-test="state"
     >
-      {{ holiday.state }}
+      {{ holiday.type.key }}
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from "vue";
-import { Holiday } from "../types";
+import {HolidayInfo} from "../utils/type";
+import dayjs from "dayjs";
+import {computed, ref} from "vue";
 
-defineProps({
+const days = ref<number>(1);
+const props = defineProps({
   holiday: {
-    type: Object as PropType<Holiday>,
+    type: Object as PropType<HolidayInfo>,
   },
 });
+const daysSinceCreation = computed<number>(() => (props.holiday?.creationDate === `${dayjs().hour()}h${dayjs().minute()}`) ? days.value++ : 1)
 </script>
-
-<style scoped></style>
