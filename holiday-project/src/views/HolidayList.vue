@@ -19,7 +19,7 @@
         />
       </router-link>
     </div>
-    <BlankWrapper v-if="!allHolidays.length"/>
+    <BlankWrapper v-if="!allHolidays?.length"/>
     <div
       class="flex gap-y-5 flex-col md:flex-row md:flex-wrap md:gap-x-10 md:w-full md:mx-auto w-full"
       v-else

@@ -61,7 +61,7 @@
       />
       <span
           @click="goToSignUpPage"
-          class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm"
+          class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm cursor-pointer"
           data-test-id="sign-up-button"
       >
         SignUp
@@ -113,16 +113,16 @@ onBeforeMount(() => {
 const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
-    if (users.value?.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
+    if (users.value.length){
+      if (users.value?.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
         isLogin.value = true;
         currentUser.value = users.value.find(user => user.email === loginInformation.email) as User;
         await router.push("/home");
         return;
+      }
     }
-    else {
       isLogin.value = false;
       isUserDataCorrect.value = true;
-    }
   }
 };
 </script>
