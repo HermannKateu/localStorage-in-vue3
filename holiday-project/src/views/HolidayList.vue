@@ -19,8 +19,10 @@
         />
       </router-link>
     </div>
+    <BlankWrapper v-if="!allHolidays.length"/>
     <div
       class="flex gap-y-5 flex-col md:flex-row md:flex-wrap md:gap-x-10 md:w-full md:mx-auto w-full"
+      v-else
     >
         <HolidaysCard
             v-for="(holiday, index) in allHolidays"
@@ -40,6 +42,7 @@ import MainButton from "../components/MainButton.vue";
 import {computed, onBeforeMount, ref} from "vue";
 import type {HolidayInfo} from "../utils/type";
 import {useRouter} from "vue-router";
+import BlankWrapper from "../components/BlankWrapper.vue";
 
 const router = useRouter();
 const allHolidays = ref<HolidayInfo[]>([])

@@ -13,7 +13,7 @@
     <div class="text-blue-100 font-bold text-xl" data-test="date">
       {{ `${dayjs(holiday.starting).format("MMMM, D")} - ${dayjs(holiday.ending).format("MMMM, D")}` }}
     </div>
-    <span class="text-gray-700 text-sm" data-test="description">
+    <span class="text-gray-700 text-sm leading-tight" data-test="description">
       {{ holiday.description }}
     </span>
     <button

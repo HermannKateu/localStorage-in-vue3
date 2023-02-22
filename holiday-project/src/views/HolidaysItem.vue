@@ -2,7 +2,7 @@
   <div class="px-4 py-16 font-WorkSans md:px-28 md:py-32">
     <div class="flex justify-between">
       <h1 class="text-gray-800 text-3xl font-semibold md:text-5xl">Details</h1>
-      <BinIcon class="h-6 w-7 md:hidden cursor-pointer" fill="gray" @click="deleteHoliday"/>
+      <BinIcon class="h-6 w-7 cursor-pointer" fill="gray" @click="deleteHoliday($route.params.id)"/>
     </div>
     <h2
         class="text-gray-800 text-lg font-bold text-center my-6 md:text-2xl md:text-justify"
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import BinIcon from "../assets/Holidays-Icons/BinIcon.vue";
 import CalenderIcon from "../assets/Holidays-Icons/CalenderIcon.vue";
 import {onBeforeMount, ref} from "vue";
@@ -59,6 +59,7 @@ import {HolidayInfo} from "../utils/type";
 import dayjs from "dayjs";
 
 const route = useRoute();
+const router = useRouter();
 const  holidayDetails = ref<HolidayInfo>({} as HolidayInfo);
 const allHolidays = ref<HolidayInfo[]>([]);
 
@@ -67,7 +68,9 @@ onBeforeMount(() => {
   holidayDetails.value = allHolidays.value[Number(route.params.id as string)];
 });
 
-const deleteHoliday = (index: number): void => {
-
+const deleteHoliday = async (index: string): Promise<void> => {
+  allHolidays.value.splice(Number(index), 1);
+  localStorage.setItem("allHolidays", JSON.stringify(allHolidays.value));
+  await router.push("/holiday-list");
 }
 </script>

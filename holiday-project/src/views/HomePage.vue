@@ -47,7 +47,7 @@
     </div>
     <div class="w-full mx-auto h-[179px] md:w-10/12 md:h-[600px]">
       <WelcomeImage
-        class="w-full h-full mx-auto md:w-9/12"
+        class="w-full h-[300px] md:h-full mx-auto md:w-[550px]"
         data-test="welcome-image"
       />
     </div>
