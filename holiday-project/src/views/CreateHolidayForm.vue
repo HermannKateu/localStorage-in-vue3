@@ -95,15 +95,6 @@ defineProps({
 });
 const emit = defineEmits(["closeModal"]);
 
-onMounted(() => {
-  document.querySelector("body")?.classList.add("overflow-hidden");
-});
-
-onUnmounted(() => {
-  document.querySelector("body")?.classList.remove("overflow-hidden");
-  document.querySelector("body")?.classList.add("overflow-auto");
-});
-
 type NewHolidayType = {
   starting: string;
   type: KeyWord;
