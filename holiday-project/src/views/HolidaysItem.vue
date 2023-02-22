@@ -57,6 +57,7 @@ import CalenderIcon from "../assets/Holidays-Icons/CalenderIcon.vue";
 import {onBeforeMount, ref} from "vue";
 import {HolidayInfo} from "../utils/type";
 import dayjs from "dayjs";
+import {holidays} from "../store/loginStore";
 
 const route = useRoute();
 const router = useRouter();
@@ -64,7 +65,7 @@ const  holidayDetails = ref<HolidayInfo>({} as HolidayInfo);
 const allHolidays = ref<HolidayInfo[]>([]);
 
 onBeforeMount(() => {
-  allHolidays.value = JSON.parse(localStorage.getItem("allHolidays") as string);
+  allHolidays.value = holidays.value;
   holidayDetails.value = allHolidays.value[Number(route.params.id as string)];
 });
 

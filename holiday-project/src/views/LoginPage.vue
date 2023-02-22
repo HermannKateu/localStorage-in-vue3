@@ -73,9 +73,8 @@
 <script setup lang="ts">
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import {currentUser, isLogin, User} from "../store/loginStore";
+import {allUsers, currentUser, isLogin, User} from "../store/loginStore";
 import { reactive, ref } from "@vue/runtime-core";
-import { FORM_DATA } from "../store/loginStore";
 import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import useVuelidate from "@vuelidate/core";
@@ -108,7 +107,7 @@ const goToSignUpPage = (): void => {
 const v$ = useVuelidate(rules, loginInformation);
 const users = ref<User[]>([])
 onBeforeMount(() => {
-   users.value = JSON.parse(localStorage.getItem(FORM_DATA) as string)
+   users.value = allUsers;
 })
 const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();

@@ -50,7 +50,7 @@ onBeforeMount(() => {
   allHolidays.value = JSON.parse(localStorage.getItem("allHolidays") as string);
 })
 
-const holidays = computed(() => allHolidays.value);
+const holidays = computed<HolidayInfo[]>(() => allHolidays.value);
 const goTo = async (id: string): Promise<void> => {
   await router.push(`/holiday-item/${id}`)
 }

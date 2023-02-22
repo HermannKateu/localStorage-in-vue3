@@ -89,7 +89,7 @@ import {computed, reactive, ref} from "vue";
 import { FORM_DATA } from "../store/loginStore";
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import { allUsers, User, currentUser } from "../store/loginStore";
+import { allUsers, currentUser } from "../store/loginStore";
 import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import {email, helpers, minLength, required, sameAs} from "@vuelidate/validators";

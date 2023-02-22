@@ -75,7 +75,7 @@ import MainButton from "../components/MainButton.vue";
 import DescriptionArea from "../components/DescriptionArea.vue";
 import DateInput from "../components/DateInput.vue";
 import NumberInput from "../components/NumberInput.vue";
-import {reactive, computed, ref, onUnmounted, onMounted, watch} from "vue";
+import {reactive, computed, ref, watch} from "vue";
 import SelectOption from "../components/SelectOption.vue";
 import {holidayOptions} from "../utils/data";
 import dayjs from "dayjs";

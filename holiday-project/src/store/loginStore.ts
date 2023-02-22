@@ -20,5 +20,4 @@ export const  currentUser = ref<User>({
     firstname: ""
 })
 export let allUsers:User[] = [];
-
 export const holidays = ref<HolidayInfo[]>([]);
