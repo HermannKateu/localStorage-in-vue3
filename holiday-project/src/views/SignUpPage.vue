@@ -152,7 +152,6 @@ const submitForm = async (): Promise<void> => {
       allUsers.push(singUpData)
       currentUser.value = singUpData
       localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
-      console.log(allUsers)
       await router.push("/home");
       return
     } else if (allUsers.length && allUsers.every(user => user.email !== singUpData.email)) {
