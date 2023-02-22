@@ -97,7 +97,16 @@ import useVuelidate from "@vuelidate/core";
 
 const ownAccount = ref(false);
 const router = useRouter();
-const singUpData = reactive<User>({
+type UserType = {
+  email: string;
+  age?: number;
+  password: string;
+  firstname: string;
+  confirmPassword: string;
+  lastname: string;
+  sex: string;
+}
+const singUpData = reactive<UserType>({
   email: "",
   age: 1,
   password: "",

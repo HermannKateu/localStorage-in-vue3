@@ -80,7 +80,6 @@ import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import useVuelidate from "@vuelidate/core";
 import {email, helpers, minLength, required} from "@vuelidate/validators";
-import WarningIcon from "../assets/Holidays-Icons/WarningIcon.vue";
 import {onBeforeMount} from "vue";
 
 const isUserDataCorrect = ref(false);

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "allowJs": true,
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -12,7 +13,6 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true
-    // "allowJs": true
   },
   "include": [
     "src/**/*.ts",

@@ -104,7 +104,18 @@ onUnmounted(() => {
   document.querySelector("body")?.classList.add("overflow-auto");
 });
 
-const holidayInfo = reactive<HolidayInfo>({
+type NewHolidayType = {
+  starting: string;
+  type: KeyWord;
+  ending: string;
+  numberOfDays?: string;
+  creationDate?: string;
+  returnDate?: string;
+  description: string;
+}
+
+
+const holidayInfo = reactive<NewHolidayType>({
   starting: "",
   type: {} as KeyWord,
   ending: "",
@@ -112,7 +123,7 @@ const holidayInfo = reactive<HolidayInfo>({
   returnDate: "",
   description: "",
   creationDate: "",
-}) as HolidayInfo;
+}) as NewHolidayType;
 
 const hasError = ref(false);
 

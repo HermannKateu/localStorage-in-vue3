@@ -10,7 +10,7 @@
           v-if="$route.name !== 'login'"
         />
         <div :class="!isLogin && 'style-header'" data-test="contact">
-          <img src="src/assets/holidays-foto/logo.png" class="w-10 h-10 md:w-20 md:h-20 rounded-full flex bottom-3" alt="logo-image"/>
+          <Logo class="h-10 w-10 md:w-12 md:h-12"/>
         </div>
       </div>
       <UserInitials
@@ -38,12 +38,13 @@
 </template>
 
 <script setup lang="ts">
-import { isLogin } from "../store/loginStore.ts";
+import { isLogin } from "../store/loginStore";
 import ArrowLeftIcon from "../assets/Holidays-Icons/ArrowLeftIcon.vue";
 import { ref } from "vue";
 import LogoutIcon from "../assets/Holidays-Icons/LogoutIcon.vue";
 import { useRouter } from "vue-router";
 import UserInitials from "./UserInitials.vue";
+import Logo from "../assets/holidays-foto/logo.vue";
 
 const shouldLogout = ref(false);
 const router = useRouter();
