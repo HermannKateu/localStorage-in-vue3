@@ -7,7 +7,8 @@ export type HolidayInfo = {
     starting: string;
     type: KeyWord;
     ending: string;
-    numberOfDays?: "";
+    numberOfDays?: string;
+    creationDate?: string;
     returnDate?: string;
     description?: string;
 }

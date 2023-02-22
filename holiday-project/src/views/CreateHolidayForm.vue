@@ -38,6 +38,7 @@
             :errors="v$.ending.$errors"
             data-test="ending-date"
         />
+        <span class="text-red-900 font-normal font-outfit text-sm" v-if="hasError">The Ending Date most always be greater</span>
         <NumberInput
             class="w-5/12 grow md:w-3/12"
             v-model="numberOfDays"
@@ -59,11 +60,13 @@
           data-test="submit-button"
       />
     </form>
-    <section class="absolute border w-full h-screen flex items-center justify-center bg-sky-100 bg-opacity-80 overscroll-none" v-if="isHolidayCreated">
-     <div class="border border-sky-200 leading-tight bg-white text-center fixed text-black font-bold h-28 rounded px-8 flex flex-col items-center justify-center">
-       <span>Your Holidays has been successfully created </span><SuccessIcon class="w-8 h-8"/>
-     </div>
-    </section>
+    <transition>
+      <section :class="['absolute w-full h-screen flex items-center justify-center bg-sky-100 bg-opacity-80 overscroll-none', isHolidayCreated ? 'on': 'off']" v-if="isHolidayCreated">
+        <div class="border border-sky-200 leading-tight bg-white text-center fixed text-black font-bold h-28 rounded px-8 flex flex-col items-center justify-center w-11/12 md:w-fit">
+          <span>Your Holidays has been successfully created </span><SuccessIcon class="w-8 h-8"/>
+        </div>
+      </section>
+    </transition>
   </div>
 </template>
 
@@ -72,7 +75,7 @@ import MainButton from "../components/MainButton.vue";
 import DescriptionArea from "../components/DescriptionArea.vue";
 import DateInput from "../components/DateInput.vue";
 import NumberInput from "../components/NumberInput.vue";
-import {reactive, computed, ref} from "vue";
+import {reactive, computed, ref, onUnmounted, onMounted, watch} from "vue";
 import SelectOption from "../components/SelectOption.vue";
 import {holidayOptions} from "../utils/data";
 import dayjs from "dayjs";
@@ -90,14 +93,26 @@ defineProps({
 });
 const emit = defineEmits(["closeModal"]);
 
+onMounted(() => {
+  document.querySelector("body")?.classList.add("overflow-hidden");
+});
+
+onUnmounted(() => {
+  document.querySelector("body")?.classList.remove("overflow-hidden");
+  document.querySelector("body")?.classList.add("overflow-auto");
+});
+
 const holidayInfo = reactive<HolidayInfo>({
   starting: "",
   type: {} as KeyWord,
   ending: "",
   numberOfDays: "",
   returnDate: "",
-  description: ""
+  description: "",
+  creationDate: "",
 }) as HolidayInfo;
+
+const hasError = ref(false);
 
 const numberOfDays = computed(() => {
   const oneDay = 1000 * 3600 * 24;
@@ -125,25 +140,38 @@ const rules = computed(() => {
 const v$ = useVuelidate(rules, holidayInfo);
 const submitForm = async (): Promise<void> => {
   const isFromValid = await v$.value.$validate();
-  if (isFromValid){
-    console.log("test");
+  if (isFromValid && !hasError.value){
     holidays.value.push({
       type: holidayInfo.type,
       starting: holidayInfo.starting,
       ending: holidayInfo.ending,
       description: holidayInfo.description,
       numberOfDays: numberOfDays.value,
-      returnDate: returnDate.value
+      returnDate: returnDate.value,
+      creationDate: `${dayjs().hour()}h${dayjs().minute()}`,
     } as HolidayInfo);
+
     localStorage.setItem("allHolidays", JSON.stringify(holidays.value));
-    console.log(holidays.value);
     isHolidayCreated.value = true;
+
     setTimeout(() => {
       isHolidayCreated.value = false;
-      Object.assign(holidayInfo, {});
+      Object.assign(holidayInfo, {
+        type: {},
+        starting: "",
+        ending: "",
+        description: "",
+        numberOfDays: "",
+        returnDate: ""
+      });
+      v$.value.$reset();
       emit("closeModal");
     }, 2000);
   }
   return;
 };
+
+watch(() => [holidayInfo.starting, holidayInfo.ending], ([newStarting, newEnding]) => {
+  hasError.value = (newStarting > newEnding && newEnding.length > 0)
+})
 </script>
