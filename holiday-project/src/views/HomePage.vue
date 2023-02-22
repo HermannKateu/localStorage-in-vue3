@@ -1,5 +1,6 @@
 <template>
   <div class="bg-gray-100 h-screen px-4">
+    <CreateHolidayForm :show="shouldShowCreationModal" class="absolute z-30 left-0 right-0" @closeModal="shouldShowCreationModal = false"/>
     <div class="flex flex-col items-center pt-24 mb-8 font-WorkSans">
       <h1
         class="text-gray-800 text-center font-bold text-3xl md:text-5xl"
@@ -24,10 +25,10 @@
     <div class="flex flex-col md:flex-row md:gap-x-8 md:mx-auto md:w-6/12">
       <div class="relative my-2 md:w-6/12">
           <MainButton
-              @click="$router.push('/create-holiday')"
-            label="Create new holiday"
-            class="bg-blue-100 w-full rounded-md h-14 flex flex-row text-white"
-            data-test="create-holiday"
+              @click="shouldShowCreationModal = !shouldShowCreationModal"
+              label="Create new holiday"
+              class="bg-blue-100 w-full rounded-md h-14 flex flex-row text-white"
+              data-test="create-holiday"
           />
           <span
             class="bottom-3 left-3 font-bold text-white text-2xl absolute bg-blue-200 w-7 h-7 rounded-md flex justify-center"
@@ -36,7 +37,7 @@
       </div>
       <div class="relative my-2 md:w-6/12">
         <MainButton
-          label="Liste des conges"
+          label="Holiday list"
           class="bg-white-100 h-14 text-blue-100 rounded-md font-semibold flex flex-col justify-center text-base"
           @click="getRandomPage"
           data-test="list-holiday"
@@ -53,15 +54,18 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import {useRouter} from "vue-router";
+import {ref} from "vue";
+
 import MainButton from "../components/MainButton.vue";
 import BlueList from "../assets/Holidays-Icons/BlueList.vue";
 import WelcomeImage from "../assets/holidays-foto/WelcomeImage.vue";
-import {useRouter} from "vue-router";
+import CreateHolidayForm from "./CreateHolidayForm.vue";
 
-const router = useRouter()
-
-const getRandomPage = () => {
-  router.push("/holiday-list");
+const router = useRouter();
+const shouldShowCreationModal = ref<boolean>(false);
+const getRandomPage = async (): Promise<void> => {
+  await router.push("/holiday-list");
 };
 </script>

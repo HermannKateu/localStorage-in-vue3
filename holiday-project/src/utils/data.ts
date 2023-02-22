@@ -1,18 +1,26 @@
 export const holidayOptions = [
     {
-        key: "a",
-        value: "Annual"
+        key: "Annaul",
+        value: "ANNAUL"
     },
     {
-        key: "m",
-        value: "Martenite"
+        key: "Martenite",
+        value: "MARTENITE"
     },
     {
-        key: "a",
-        value: "Absence"
+        key: "Adventure",
+        value: "ADVENTURE"
     },
     {
-        key: "a",
-        value: "Relaxion"
+        key: "Cycling",
+        value: "CYCLING"
+    },
+    {
+        key: "Family",
+        value: "FAMILY"
+    },
+    {
+        key: "City-Breaks",
+        value: "CITY BREAKS"
     }
 ]

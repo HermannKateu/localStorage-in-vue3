@@ -3,7 +3,7 @@
     class="h-screen bg-gray-100 md:bg-white flex flex-col md:justify-center md:py-16 md:h-fit"
   >
     <div
-      class="text-base md:text-xl font-bold flex justify-center border border-gray-100 my-8 py-3 text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
+      class="text-base md:text-xl font-bold flex justify-center border border-gray-100 my-8 py-2 leading-tight text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
       v-show="isUserDataCorrect"
       data-test="login-error-msg"
     >
@@ -73,13 +73,14 @@
 <script setup lang="ts">
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import {isLogin, User} from "../store/loginStore";
+import {currentUser, isLogin, User} from "../store/loginStore";
 import { reactive, ref } from "@vue/runtime-core";
 import { FORM_DATA } from "../store/loginStore";
 import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import useVuelidate from "@vuelidate/core";
 import {email, helpers, minLength, required} from "@vuelidate/validators";
+import WarningIcon from "../assets/Holidays-Icons/WarningIcon.vue";
 
 const isUserDataCorrect = ref(false);
 const router = useRouter();
@@ -100,7 +101,7 @@ const rules = {
   },
 }
 
-const goToSignUpPage = () => {
+const goToSignUpPage = (): void => {
    router.push("/sign-up");
 };
 
@@ -112,6 +113,7 @@ const loginUser = async (): Promise<void> => {
   if (isFormValid){
     if (users.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
         isLogin.value = true;
+        currentUser.value = users.find(user => user.email === loginInformation.email) as User;
         await router.push("/home");
         return;
     }

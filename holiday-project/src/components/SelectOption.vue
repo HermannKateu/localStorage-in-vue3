@@ -54,7 +54,7 @@
     </section>
     <div
         class="flex gap-x-2 my-2 items-center"
-        v-if="errors.length && shouldDisplayErrorMessage"
+        v-if="errors.length"
     >
       <ErrorWrapper
           v-for="error in errors"
@@ -71,11 +71,8 @@ import { computed, PropType, ref } from "vue";
 import { ErrorObject } from "@vuelidate/core";
 import ErrorWrapper from "./ErrorWrapper.vue";
 import {useDetectOutsideClick} from "../utils/ousideDetector";
+import type {KeyWord} from "../utils/type";
 
-type KeyWord = {
-  value: string;
-  key: string;
-}
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
   options: {
@@ -97,10 +94,6 @@ const props = defineProps({
   placeholder: {
     type: String,
     required: true,
-  },
-  shouldDisplayErrorMessage: {
-    type: Boolean,
-    default: true,
   },
 });
 

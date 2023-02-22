@@ -3,14 +3,14 @@
     class="bg-gray-100 md:bg-white h-screen flex flex-col md:justify-center font-WorkSans md:h-fit"
   >
     <div
-      class="text-base md:text-xl font-bold flex justify-center border border-gray-100 my-8 p-3 text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
+      class="text-base md:text-xl leading-tight font-bold flex justify-center border border-gray-100 my-8 p-3 text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
       v-show="ownAccount"
       data-test="sign-up-error"
     >
       It seems as if a user already have this email. If you are the one please
       <span
         @click="$router.push('/')"
-        class="pl-2 text-blue-200 underline text-base md:text-xl"
+        class="pb-1 text-blue-200 underline text-base md:text-xl"
         >Login</span
       >
     </div>

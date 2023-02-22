@@ -5,7 +5,7 @@
     <div class="flex justify-between p-2 font-WorkSans">
       <div class="flex items-center space-x-1">
         <ArrowLeftIcon
-          @click="$router.back()"
+          @click="goBack"
           class="cursor-pointer hover:-translate-x-3 ease-in duration-500"
           v-if="$route.name !== 'login'"
         />
@@ -47,6 +47,11 @@ import UserInitials from "./UserInitials.vue";
 
 const shouldLogout = ref(false);
 const router = useRouter();
+
+const goBack = async (): Promise<void> => {
+  await router.back();
+  shouldLogout.value = false;
+}
 
 const logout = async (): Promise<void> => {
   shouldLogout.value = false;
