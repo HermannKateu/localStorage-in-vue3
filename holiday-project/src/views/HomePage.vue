@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen px-4">
+  <div class="bg-gray-100 h-screen px-4 h-screen md:h-[90vw] md:fixed overscroll-y-none">
     <CreateHolidayForm :show="shouldShowCreationModal" class="absolute z-30 left-0 right-0" @closeModal="shouldShowCreationModal = false"/>
     <div class="flex flex-col items-center pt-24 mb-8 font-WorkSans">
       <h1

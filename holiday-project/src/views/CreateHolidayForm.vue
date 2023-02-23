@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-100 h-screen md:h-[90vw] md:fixed flex md:bg-gray-100 overflow-hidden" v-if="show">
+  <div class="bg-gray-100 h-screen md:h-[90vw] md:fixed flex md:bg-gray-100" v-if="show">
     <form
       class="px-4 pt-4 max-w-[900px] md:mx-auto md:bg-white md:rounded-lg md:px-16 relative"
     >
