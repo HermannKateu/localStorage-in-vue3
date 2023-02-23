@@ -3,14 +3,17 @@
     class="flex flex-col p-4 gap-y-4 bg-white md:br-gray-400 shadow-md shadow-gray-200 md:h-28"
   >
     <div class="flex justify-between p-2 font-WorkSans">
-      <div class="flex items-center space-x-1">
-        <ArrowLeftIcon
-          @click="goBack"
-          class="cursor-pointer hover:-translate-x-3 ease-in duration-500"
-          v-if="$route.name !== 'login'"
+      <div class="flex -space-x-3.5 md:-space-x-6" v-if="$route.name !== 'login' && $route.name !== 'sign-up'">
+        <ClipPath class="bg-sky-300 w-[80px] h-[35px] md:w-[120px] md:h-[45px] cursor-pointer"
+                  :is-current="$route.name === defaultCrumb.name"
+                  @click="goTo(defaultCrumb.path)"
         />
-        <div :class="!isLogin && 'style-header'" data-test="contact">
-          <Logo class="h-10 w-10 md:w-12 md:h-12"/>
+        <div v-for="crumb in routeCrumb">
+          <ClipMain :label="crumb.label"
+                    :is-current="crumb.name === $route.name"
+                    @click="goTo(crumb.path)"
+                    class="w-[80px] h-[35px] md:w-[120px] md:h-[45px] cursor-pointer" v-if="crumb.label"
+          />
         </div>
       </div>
       <UserInitials
@@ -38,13 +41,19 @@
 </template>
 
 <script setup lang="ts">
-import { isLogin } from "../store/loginStore";
-import ArrowLeftIcon from "../assets/Holidays-Icons/ArrowLeftIcon.vue";
 import { ref } from "vue";
 import LogoutIcon from "../assets/Holidays-Icons/LogoutIcon.vue";
 import { useRouter } from "vue-router";
 import UserInitials from "./UserInitials.vue";
-import Logo from "../assets/holidays-foto/logo.vue";
+import ClipPath from "./ClipPath.vue";
+import ClipMain from "./ClipMain.vue";
+import {routeCrumb} from "../utils/data";
+
+const defaultCrumb = {
+      path: "/home",
+      name: "home",
+      label: "Home",
+    };
 
 const shouldLogout = ref(false);
 const router = useRouter();
@@ -63,6 +72,10 @@ const showUserDetails = async (): Promise<void> => {
   shouldLogout.value = false;
   emit("showDetails");
 };
+
+const goTo = (id: string): void => {
+  router.push(id);
+}
 </script>
 
 <style scoped>

@@ -9,11 +9,17 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import HeaderSection from "../src/components/HeaderSection.vue";
 import SideWrapper from "./components/SideWrapper.vue";
+import {useRoute} from "vue-router";
 
 const showShowDetails = ref<boolean>(false);
+const route = useRoute();
+
+watch(() => route.name, (newRoot) => {
+  if (newRoot) showShowDetails.value = false;
+})
 </script>
 
 <style>

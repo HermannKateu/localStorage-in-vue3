@@ -15,7 +15,7 @@
       >
     </div>
     <form
-      class="px-4 w-full flex flex-col mx-auto md:my-16 md:px-8 md:border md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-2"
+      class="px-4 w-full flex flex-col mx-auto md:my-16 md:px-8 md:border md:py-5 md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-2"
       @submit.prevent="submitForm"
     >
       <h1 class="text-center text-2xl font-semibold md:text-4xl mt-5">
@@ -56,7 +56,7 @@
             type="radio"
             name="sex"
             id="male"
-            class="w-4 h-4 focus:animate-spin"
+            class="w-4 h-4"
             value="Male"
             v-model="singUpData.sex"
           />
@@ -70,7 +70,7 @@
             name="sex"
             id="female"
             value="Female"
-            class="w-4 h-4"
+            class="w-4 h-4 accent-pink-500"
             v-model="singUpData.sex"
           />
         </label>

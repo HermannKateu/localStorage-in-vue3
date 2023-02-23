@@ -23,4 +23,22 @@ export const holidayOptions = [
         key: "City-Breaks",
         value: "CITY BREAKS"
     }
+];
+
+type Route = {
+    path: string;
+    name: string;
+    label: string;
+}
+export const routeCrumb: Route[] = [
+    {
+        path: "/holiday-list",
+        name: "holiday-list",
+        label: "List",
+    },
+    {
+        path: "/holiday-item/:id",
+        name: "holiday-details",
+        label: "Details",
+    },
 ]

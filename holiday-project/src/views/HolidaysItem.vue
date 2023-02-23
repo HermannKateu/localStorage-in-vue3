@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="md:h-[90vw] md:fixed">
     <ModalWrapper :show="shouldSHowDelete">
       Are you sure you want to delete this Holiday ?
       <div class="flex gap-x-4 my-2">
