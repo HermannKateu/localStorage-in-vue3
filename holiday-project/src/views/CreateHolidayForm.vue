@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-100 h-screen flex md:bg-gray-100" v-if="show">
+  <div class="bg-gray-100 h-screen md:h-[90vw] md:fixed flex md:bg-gray-100 overflow-hidden" v-if="show">
     <form
-      class="px-4 pt-4 max-w-[900px] md:m-auto md:bg-white md:rounded-lg md:px-16 relative"
+      class="px-4 pt-4 max-w-[900px] md:mx-auto md:bg-white md:rounded-lg md:px-16 relative"
     >
       <span
           class="flex p-2.5 h-3 w-3 rounded-full border-2 border-gray justify-center items-center font-bold text-gray absolute right-4 cursor-pointer"

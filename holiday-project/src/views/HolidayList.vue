@@ -27,7 +27,7 @@
         <HolidaysCard
             v-for="(holiday, index) in allHolidays"
             :holiday="holiday"
-            class="max-w-[360px] grow cursor-pointer"
+            class="max-w-[380px] grow cursor-pointer"
             data-test="holiday-card"
             :key="index"
             @click="goTo(index)"
