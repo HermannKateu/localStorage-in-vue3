@@ -61,11 +61,9 @@
       />
     </form>
     <transition>
-      <section :class="['absolute w-full h-screen flex items-center justify-center bg-sky-100 bg-opacity-80 overscroll-none', isHolidayCreated ? 'on': 'off']" v-if="isHolidayCreated">
-        <div class="border border-sky-200 leading-tight bg-white text-center fixed text-black font-bold h-28 rounded px-8 flex flex-col items-center justify-center w-11/12 md:w-fit">
-          <span>Your Holidays has been successfully created </span><SuccessIcon class="w-8 h-8"/>
-        </div>
-      </section>
+      <ModalWrapper :show="isHolidayCreated">
+        <span>Your Holidays has been successfully created </span><SuccessIcon class="w-8 h-8"/>
+      </ModalWrapper>
     </transition>
   </div>
 </template>
@@ -85,6 +83,7 @@ import {helpers, required} from "@vuelidate/validators";
 import {holidays} from "../store/loginStore";
 import SuccessIcon from "../assets/Holidays-Icons/SuccessIcon.vue";
 import {useRouter} from "vue-router";
+import ModalWrapper from "../components/ModalWrapper.vue";
 
 const router = useRouter();
 defineProps({

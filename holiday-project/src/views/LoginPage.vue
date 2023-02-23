@@ -107,12 +107,13 @@ const goToSignUpPage = (): void => {
 const v$ = useVuelidate(rules, loginInformation);
 const users = ref<User[]>([])
 onBeforeMount(() => {
-   users.value = allUsers;
+   users.value = JSON.parse(localStorage.getItem("form") as string);
 })
 const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
-    if (users.value.length){
+    if (users.value.length > 0){
+      console.log("test")
       if (users.value?.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
         isLogin.value = true;
         currentUser.value = users.value.find(user => user.email === loginInformation.email) as User;

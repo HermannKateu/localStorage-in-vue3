@@ -4,7 +4,7 @@
   >
     <div class="flex flex-row justify-between text-gray text-sm font-medium">
       <span data-test="starting-date">
-        Il ya de cela {{ daysSinceCreation }} jour(s)
+        Created {{ daysSinceCreation }}
       </span>
       <span data-test="time">
         {{ holiday.creationDate }}
@@ -13,7 +13,7 @@
     <div class="text-blue-100 font-bold text-xl" data-test="date">
       {{ `${dayjs(holiday.starting).format("MMMM, D")} - ${dayjs(holiday.ending).format("MMMM, D")}` }}
     </div>
-    <span class="text-gray-700 text-sm leading-tight" data-test="description">
+    <span class="text-gray-700 text-sm leading-tight flex w-full flex-wrap max-w-11/12" data-test="description">
       {{ holiday.description }}
     </span>
     <button
@@ -32,11 +32,20 @@ import {HolidayInfo} from "../utils/type";
 import dayjs from "dayjs";
 import {computed, ref} from "vue";
 
-const days = ref<number>(1);
+const days = ref<number>(0);
 const props = defineProps({
   holiday: {
     type: Object as PropType<HolidayInfo>,
   },
 });
-const daysSinceCreation = computed<number>(() => (props.holiday?.creationDate === `${dayjs().hour()}h${dayjs().minute()}`) ? days.value++ : 1)
+
+const createFormat = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
+const createFormat2 = new Intl.RelativeTimeFormat('en', { numeric: "auto" });
+const daysSinceCreation = computed(() => {
+  if((props.holiday?.creationDate === `${dayjs().hour()}h${dayjs().minute()}`)) {
+    days.value--;
+    return createFormat.format(days.value, "day");
+  }
+  return createFormat2.format(days.value, "minutes")
+});
 </script>

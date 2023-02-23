@@ -19,7 +19,7 @@
         />
       </router-link>
     </div>
-    <BlankWrapper v-if="!allHolidays?.length"/>
+    <BlankWrapper v-if="allHolidays?.length === 0" />
     <div
       class="flex gap-y-5 flex-col md:flex-row md:flex-wrap md:gap-x-10 md:w-full md:mx-auto w-full"
       v-else
@@ -51,7 +51,7 @@ onBeforeMount(() => {
 })
 
 const holidays = computed<HolidayInfo[]>(() => allHolidays.value);
-const goTo = async (id: string): Promise<void> => {
+const goTo = async (id: number): Promise<void> => {
   await router.push(`/holiday-item/${id}`)
 }
 </script>

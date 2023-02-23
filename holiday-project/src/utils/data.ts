@@ -1,7 +1,7 @@
 export const holidayOptions = [
     {
-        key: "Annaul",
-        value: "ANNAUL"
+        key: "Annual",
+        value: "ANNUAL"
     },
     {
         key: "Martenite",
