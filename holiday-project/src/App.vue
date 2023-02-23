@@ -1,12 +1,19 @@
 <template>
   <div>
-    <HeaderSection class="sticky top-0 z-50" />
-    <router-view class="z-30 overscroll-x-none scroll"></router-view>
+    <HeaderSection class="sticky top-0 z-50" @show-details="showShowDetails = true"/>
+    <section class="flex w-full">
+      <router-view :class="['z-30 overscroll-x-none scroll', showShowDetails ? 'w-10/12' : 'w-full']"></router-view>
+      <SideWrapper v-if="showShowDetails" @close="showShowDetails = false"/>
+    </section>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import {ref} from "vue";
 import HeaderSection from "../src/components/HeaderSection.vue";
+import SideWrapper from "./components/SideWrapper.vue";
+
+const showShowDetails = ref<boolean>(false);
 </script>
 
 <style>

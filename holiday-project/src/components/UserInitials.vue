@@ -6,4 +6,5 @@
 
 <script setup lang="ts">
 import { currentUser } from "../store/loginStore";
+
 </script>

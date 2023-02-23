@@ -113,7 +113,6 @@ const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
     if (users.value.length > 0){
-      console.log("test")
       if (users.value?.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
         isLogin.value = true;
         currentUser.value = users.value.find(user => user.email === loginInformation.email) as User;

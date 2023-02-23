@@ -150,12 +150,14 @@ const submitForm = async (): Promise<void> => {
   if (isFormValid){
     if (!allUsers.length) {
       allUsers.push(singUpData)
-      currentUser.value = singUpData
+      currentUser.value = singUpData;
+      localStorage.setItem("user", JSON.stringify(singUpData));
       localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
       await router.push("/home");
       return
     } else if (allUsers.length && allUsers.every(user => user.email !== singUpData.email)) {
       currentUser.value = singUpData
+      localStorage.setItem("user", JSON.stringify(singUpData));
       allUsers.push(singUpData)
       localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
       await router.push("/home");

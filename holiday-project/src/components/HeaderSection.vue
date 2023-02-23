@@ -23,8 +23,8 @@
             v-if="shouldLogout"
             class="w-11/12 divide-y divide-sky-300 md:w-[350px] rounded-lg border border-sky-300 p-4 bg-white absolute right-6 top-16"
         >
-          <div class="cursor-pointer py-2">Display User Details</div>
-          <div class="cursor-pointer py-2">Delete Account</div>
+          <div class="cursor-pointer py-2" @click="showUserDetails">Display User Details</div>
+          <div class="cursor-pointer py-2">Update User</div>
           <div
               @click="logout"
               class="flex items-center gap-x-2 py-2 cursor-pointer"
@@ -48,7 +48,7 @@ import Logo from "../assets/holidays-foto/logo.vue";
 
 const shouldLogout = ref(false);
 const router = useRouter();
-
+const emit = defineEmits(["showDetails"]);
 const goBack = async (): Promise<void> => {
   await router.back();
   shouldLogout.value = false;
@@ -57,6 +57,11 @@ const goBack = async (): Promise<void> => {
 const logout = async (): Promise<void> => {
   shouldLogout.value = false;
   await router.push("/");
+};
+
+const showUserDetails = async (): Promise<void> => {
+  shouldLogout.value = false;
+  emit("showDetails");
 };
 </script>
 
