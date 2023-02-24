@@ -1,6 +1,6 @@
 <template>
   <div v-for="(icon, index) in list" :key="index"
-       class="p-1.5 bg-sky-100 rounded flex flex-col justify-center cursor-not-allowed hover:translate-x-5  duration-500"
+       class="p-1.5 bg-sky-100 rounded flex flex-col justify-center cursor-pointer hover:translate-x-5  duration-500"
        @click="sendEvent(icon.value)"
   >
     <span class="flex space-x-3">

@@ -11,17 +11,17 @@
         OTHERS:
       </span>
       <section class="flex flex-col gap-y-5">
-        <span v-for="(icon, index) in icons" :key="index"
-              class="p-1.5 bg-sky-100 rounded flex flex-col justify-center cursor-not-allowed hover:translate-x-5  duration-500"
-        >
-          <span class="flex space-x-3" @click="showList = !showList">
-          <component :is="icon.icon" class="w-[25px] h-[25px]"/> <span>{{icon.value}}</span>
-          </span>
-          <ul :class="['border-t-2 mt-1 pl-1', showList ? 'scale-down' : '']" v-if="showList">
-            <li v-for="(value, index) in icon.list" :key="index" class="" v-if="icon.value.toLowerCase() === 'settings'">.{{ value }}</li>
-          </ul>
-        </span>
-        <ListWrapper :list="icons">
+<!--        <span v-for="(icon, index) in icons" :key="index"-->
+<!--              class="p-1.5 bg-sky-100 rounded flex flex-col justify-center cursor-not-allowed hover:translate-x-5  duration-500"-->
+<!--        >-->
+<!--          <span class="flex space-x-3" @click="showList = !showList">-->
+<!--          <component :is="icon.icon" class="w-[25px] h-[25px]"/> <span>{{icon.value}}</span>-->
+<!--          </span>-->
+<!--          <ul :class="['border-t-2 mt-1 pl-1', showList ? 'scale-down' : '']" v-if="showList">-->
+<!--            <li v-for="(value, index) in icon.list" :key="index" class="" v-if="icon.value.toLowerCase() === 'settings'">.{{ value }}</li>-->
+<!--          </ul>-->
+<!--        </span>-->
+        <ListWrapper :list="icons" @menu="selectedIcon">
           <template v-slot="{menu}">
             <ul :class="['border-t-2 mt-1 pl-1', showList ? 'scale-down' : '']" v-if="showList">
               <li v-for="(value, index) in menu" :key="index" class="" v-if="value.value.toLowerCase() === 'settings'">.{{ value }}</li>
@@ -65,6 +65,10 @@ const list = [
     key: "documentation",
   }
 ]
+
+const selectedIcon = (icon: string): void => {
+
+}
 </script>
 
 <style scoped>
