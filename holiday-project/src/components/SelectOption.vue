@@ -27,6 +27,7 @@
           @focus="toggleDisplayOptions"
           autocomplete="off"
       />
+      <ArrowDown :class="['w-[20px] h-[20px] absolute right-2 top-3 duration-300', shouldDisplayOptions ? 'rotate-180' : 'rotate-0']"/>
     </div>
     <section
         data-test="options"
@@ -72,6 +73,7 @@ import { ErrorObject } from "@vuelidate/core";
 import ErrorWrapper from "./ErrorWrapper.vue";
 import {useDetectOutsideClick} from "../utils/ousideDetector";
 import type {KeyWord} from "../utils/type";
+import ArrowDown from "../assets/Holidays-Icons/ArrowDown.vue";
 
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({

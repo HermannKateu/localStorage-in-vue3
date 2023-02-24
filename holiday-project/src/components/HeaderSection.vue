@@ -1,10 +1,11 @@
 <template>
   <header
-    class="flex flex-col p-4 gap-y-4 bg-white md:br-gray-400 shadow-md shadow-gray-200 md:h-28"
+      ref="shouldClose"
+    class="flex flex-col h-20 p-4 gap-y-4 bg-white md:br-gray-400 shadow-md shadow-gray-200 md:h-28"
   >
     <div class="flex justify-between p-2 font-WorkSans">
       <div class="flex -space-x-3.5 md:-space-x-6" v-if="$route.name !== 'login' && $route.name !== 'sign-up'">
-        <ClipPath class="bg-sky-300 w-[80px] h-[35px] md:w-[120px] md:h-[45px] cursor-pointer"
+        <ClipPath class="bg-sky-300 w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer"
                   :is-current="$route.name === defaultCrumb.name"
                   @click="goTo(defaultCrumb.path)"
         />
@@ -12,7 +13,7 @@
           <ClipMain :label="crumb.label"
                     :is-current="crumb.name === $route.name"
                     @click="goTo(crumb.path)"
-                    class="w-[80px] h-[35px] md:w-[120px] md:h-[45px] cursor-pointer" v-if="crumb.label"
+                    class="w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer" v-if="crumb.label"
           />
         </div>
       </div>
@@ -26,8 +27,10 @@
             v-if="shouldLogout"
             class="w-11/12 divide-y divide-sky-300 md:w-[350px] rounded-lg border border-sky-300 p-4 bg-white absolute right-6 top-16"
         >
-          <div class="cursor-pointer py-2" @click="showUserDetails">Display User Details</div>
-          <div class="cursor-pointer py-2">Update User</div>
+          <div class="cursor-pointer py-2 flex gap-x-2 items-center" @click="showUserDetails">Display User Details <DetailsIcon /></div>
+          <div class="cursor-pointer py-2 flex gap-x-2 items-center">Update User
+            <Update class="w-[20px] h-[20px]" />
+          </div>
           <div
               @click="logout"
               class="flex items-center gap-x-2 py-2 cursor-pointer"
@@ -48,6 +51,9 @@ import UserInitials from "./UserInitials.vue";
 import ClipPath from "./ClipPath.vue";
 import ClipMain from "./ClipMain.vue";
 import {routeCrumb} from "../utils/data";
+import Update from "../assets/Holidays-Icons/Update.vue";
+import {useDetectOutsideClick} from "../utils/ousideDetector";
+import DetailsIcon from "../assets/Holidays-Icons/DetailsIcon.vue";
 
 const defaultCrumb = {
       path: "/home",
@@ -56,6 +62,7 @@ const defaultCrumb = {
     };
 const shouldLogout = ref(false);
 const router = useRouter();
+
 const emit = defineEmits(["showDetails"]);
 const logout = async (): Promise<void> => {
   shouldLogout.value = false;
@@ -71,6 +78,12 @@ const goTo = (id: string): void => {
   router.push(id);
   shouldLogout.value = false;
 }
+
+const shouldClose = ref<HTMLElement>();
+
+useDetectOutsideClick(shouldClose, () => {
+  shouldLogout.value = false;
+});
 </script>
 
 <style scoped>

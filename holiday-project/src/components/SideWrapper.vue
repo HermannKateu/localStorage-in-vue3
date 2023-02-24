@@ -11,25 +11,20 @@
         OTHERS:
       </span>
       <section class="flex flex-col gap-y-5">
-<!--        <span v-for="(icon, index) in icons" :key="index"-->
-<!--              class="p-1.5 bg-sky-100 rounded flex flex-col justify-center cursor-not-allowed hover:translate-x-5  duration-500"-->
-<!--        >-->
-<!--          <span class="flex space-x-3" @click="showList = !showList">-->
-<!--          <component :is="icon.icon" class="w-[25px] h-[25px]"/> <span>{{icon.value}}</span>-->
-<!--          </span>-->
-<!--          <ul :class="['border-t-2 mt-1 pl-1', showList ? 'scale-down' : '']" v-if="showList">-->
-<!--            <li v-for="(value, index) in icon.list" :key="index" class="" v-if="icon.value.toLowerCase() === 'settings'">.{{ value }}</li>-->
-<!--          </ul>-->
-<!--        </span>-->
         <ListWrapper :list="icons" @menu="selectedIcon">
           <template v-slot="{menu}">
-            <ul :class="['border-t-2 mt-1 pl-1', showList ? 'scale-down' : '']" v-if="showList">
-              <li v-for="(value, index) in menu" :key="index" class="" v-if="value.value.toLowerCase() === 'settings'">.{{ value }}</li>
-            </ul>
+            <span
+                :class="['border-t-2 mt-2 pl-1', showList === menu.value?.toLowerCase() ? 'scale-down' : '']"
+                v-if="showList === menu.value?.toLowerCase()"
+            >
+              <span class="flex flex-col  gap-y-2 max-h-[235px] scroll">
+                <span v-for="(value, index) in menu.list" :key="index" class="text-sm leading-tight pt-1">.{{ value }}</span>
+              </span>
+            </span>
           </template>
         </ListWrapper>
       </section>
-      <div class="flex gap-x-3 items-center cursor-pointer text-sky-300 absolute bottom-[200px]" @click="$emit('close')">
+      <div class="flex gap-x-3 items-center cursor-pointer text-sky-300 bottom-[120px] absolute md:bottom-[200px]" @click="$emit('close')">
         Close:  <ArrowRight class="hover:translate-x-4 duration-500"/>
       </div>
     </section>
@@ -40,34 +35,17 @@
 import {currentUser} from "../store/loginStore";
 import Person from "../assets/holidays-foto/Person.vue";
 import ArrowRight from "../assets/holidays-foto/ArrowRight.vue";
-import Contact from "../assets/icons/Contact.vue";
-import Settings from "../assets/icons/Settings.vue";
-import Email from "../assets/icons/Email.vue";
-import Documentation from "../assets/icons/Documentation.vue";
 import {icons} from "../utils/icon";
 import {ref} from "vue";
 import ListWrapper from "./ListWrapper.vue";
 
 defineEmits(["close"]);
-const showList = ref<boolean>(false);
+const showList = ref<string>("");
 
-const list = [
-  {
-    label: "a",
-    key: "contact",
-  },
-  {
-    label: "b",
-    key: "settings",
-  },
-  {
-    label: "c",
-    key: "documentation",
-  }
-]
+const list = ["contact", "settings", "documentation", "email"];
 
 const selectedIcon = (icon: string): void => {
-
+  showList.value = list.find(menu => menu === icon) as string;
 }
 </script>
 

@@ -8,11 +8,11 @@
   }
 
   .scroll::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 rounded-[20px];
+    @apply bg-gray-200 rounded-[20px];
   }
 
   .scroll::-webkit-scrollbar-track {
-    @apply rounded-[20px] bg-gray-50;
+    @apply rounded-[20px] bg-gray-200;
   }
 
   .scroll::-webkit-scrollbar {

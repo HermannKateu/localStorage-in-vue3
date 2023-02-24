@@ -4,7 +4,7 @@
   >
     <div class="flex flex-row justify-between text-gray text-sm font-medium">
       <span data-test="starting-date">
-        Created {{ daysSinceCreation }}
+        Created {{ daysSinceCreation }} day(s) ago
       </span>
       <span data-test="time">
         {{ holiday.creationDate }}
@@ -32,20 +32,13 @@ import {HolidayInfo} from "../utils/type";
 import dayjs from "dayjs";
 import {computed, ref} from "vue";
 
-const days = ref<number>(0);
+const days = ref<number>(1);
 const props = defineProps({
   holiday: {
     type: Object as PropType<HolidayInfo>,
+    default: () => ({}),
   },
 });
 
-const createFormat = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
-const createFormat2 = new Intl.RelativeTimeFormat('en', { numeric: "auto" });
-const daysSinceCreation = computed(() => {
-  if((props.holiday?.creationDate === `${dayjs().hour()}h${dayjs().minute()}`)) {
-    days.value--;
-    return createFormat.format(days.value, "day");
-  }
-  return createFormat2.format(days.value, "minutes")
-});
+const daysSinceCreation = computed<number>(() => props.holiday?.creationDate === `${dayjs().hour()}h${dayjs().minute()}` ? days.value++ : 1);
 </script>
