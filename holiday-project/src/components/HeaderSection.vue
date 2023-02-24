@@ -54,15 +54,9 @@ const defaultCrumb = {
       name: "home",
       label: "Home",
     };
-
 const shouldLogout = ref(false);
 const router = useRouter();
 const emit = defineEmits(["showDetails"]);
-const goBack = async (): Promise<void> => {
-  await router.back();
-  shouldLogout.value = false;
-}
-
 const logout = async (): Promise<void> => {
   shouldLogout.value = false;
   await router.push("/");
@@ -75,6 +69,7 @@ const showUserDetails = async (): Promise<void> => {
 
 const goTo = (id: string): void => {
   router.push(id);
+  shouldLogout.value = false;
 }
 </script>
 
