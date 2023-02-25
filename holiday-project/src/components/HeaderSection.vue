@@ -33,7 +33,7 @@
             class="w-11/12 divide-y divide-sky-300 md:w-[350px] rounded-lg border border-sky-300 p-4 bg-white absolute right-6 top-16"
         >
           <div class="cursor-pointer py-2 flex gap-x-2 items-center" @click="showUserDetails">Display User Details <DetailsIcon /></div>
-          <div class="cursor-pointer py-2 flex gap-x-2 items-center">Update User
+          <div class="cursor-pointer py-2 flex gap-x-2 items-center" @click="showUserUpdate">Update User
             <Update class="w-[20px] h-[20px]" />
           </div>
           <div
@@ -69,7 +69,7 @@ const shouldLogout = ref(false);
 const router = useRouter();
 const route = useRoute();
 
-const emit = defineEmits(["showDetails"]);
+const emit = defineEmits(["showDetails", "showUpdate"]);
 const logout = async (): Promise<void> => {
   shouldLogout.value = false;
   await router.push("/");
@@ -77,7 +77,12 @@ const logout = async (): Promise<void> => {
 
 const showUserDetails = async (): Promise<void> => {
   shouldLogout.value = false;
-  emit("showDetails");
+  emit("showDetails", "details");
+};
+
+const showUserUpdate = async (): Promise<void> => {
+  shouldLogout.value = false;
+  emit("showUpdate", "update");
 };
 
 const goTo = (id: string): void => {

@@ -3,8 +3,8 @@
     <ModalWrapper :show="shouldSHowDelete">
       Are you sure you want to delete this Holiday ?
       <div class="flex gap-x-4 my-2">
-        <button class="bg-sky-200 font-semibold py-1.5 px-6 rounded" @click="shouldDelete = true">Delete</button>
-        <button class="bg-sky-200 font-semibold py-1.5 px-6 rounded" @click="shouldSHowDelete = false">Cancel</button>
+        <button class="bg-sky-200 font-semibold py-1.5 px-6 rounded text-red-900" @click="shouldDelete = true">Delete</button>
+        <button class="bg-sky-200 font-semibold py-1.5 px-6 rounded text-gray" @click="shouldSHowDelete = false">Cancel</button>
       </div>
     </ModalWrapper>
     <div class="px-4 py-16 font-WorkSans md:px-28 md:py-32">
