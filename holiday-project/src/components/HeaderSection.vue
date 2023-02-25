@@ -4,18 +4,23 @@
     class="flex flex-col h-20 p-4 gap-y-4 bg-white md:br-gray-400 shadow-md shadow-gray-200 md:h-28"
   >
     <div class="flex justify-between p-2 font-WorkSans">
-      <div class="flex -space-x-3.5 md:-space-x-6" v-if="$route.name !== 'login' && $route.name !== 'sign-up'">
-        <ClipPath class="bg-sky-300 w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer"
-                  :is-current="$route.name === defaultCrumb.name"
+      <div class="flex -space-x-3.5 md:-space-x-6" v-if="route.name !== 'login' && route.name !== 'sign-up'">
+        <ClipPath class="w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer"
+                  :is-current="route.name === defaultCrumb.name"
                   @click="goTo(defaultCrumb.path)"
         />
-        <div v-for="crumb in routeCrumb">
-          <ClipMain :label="crumb.label"
-                    :is-current="crumb.name === $route.name"
-                    @click="goTo(crumb.path)"
-                    class="w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer" v-if="crumb.label"
+          <ClipMain :label="routeCrumb[0].label"
+                    :is-current="routeCrumb[0].name === route.name"
+                    v-if="routeCrumb[0].name === route.name"
+                    @click="goTo(routeCrumb[0].path)"
+                    class="w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer"
           />
-        </div>
+          <ClipMain :label="routeCrumb[1].label"
+                    :is-current="routeCrumb[1].name === route.name"
+                    v-if="routeCrumb[1].name === route.name"
+                    @click="goTo(routeCrumb[1].path)"
+                    class="w-[80px] h-[35px] md:w-[130px] md:h-[45px] cursor-pointer"
+          />
       </div>
       <UserInitials
           v-if="$route.name !== 'login' && $route.name !== 'sign-up'"
@@ -44,9 +49,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import {ref} from "vue";
 import LogoutIcon from "../assets/Holidays-Icons/LogoutIcon.vue";
-import { useRouter } from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import UserInitials from "./UserInitials.vue";
 import ClipPath from "./ClipPath.vue";
 import ClipMain from "./ClipMain.vue";
@@ -62,6 +67,7 @@ const defaultCrumb = {
     };
 const shouldLogout = ref(false);
 const router = useRouter();
+const route = useRoute();
 
 const emit = defineEmits(["showDetails"]);
 const logout = async (): Promise<void> => {

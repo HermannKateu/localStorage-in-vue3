@@ -37,7 +37,7 @@ export const routeCrumb: Route[] = [
         label: "List",
     },
     {
-        path: "/holiday-item/:id",
+        path: "",
         name: "holiday-details",
         label: "Details",
     },

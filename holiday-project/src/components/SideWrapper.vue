@@ -46,6 +46,7 @@ const list = ["contact", "settings", "documentation", "email"];
 
 const selectedIcon = (icon: string): void => {
   showList.value = list.find(menu => menu === icon) as string;
+  if (icon === 'email') icons.find(element => element.value?.toLowerCase() === 'email' && element.list?.length === 1)?.list.push(`Your email is ${currentUser.value?.email}`)
 }
 </script>
 

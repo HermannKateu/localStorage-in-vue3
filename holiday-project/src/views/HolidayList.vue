@@ -1,6 +1,7 @@
 <template>
   <div
-    class="bg-white px-4 flex flex-col font-WorkSans py-20 gap-y-12 py-20 md:max-w-[768px] md:bg-white md:mx-auto lg:max-w-[1649px]"
+    class="bg-white px-4 bg-clip-border	 !text-white flex flex-col font-WorkSans py-20 gap-y-12 py-20 md:max-w-[768px]
+     bg-cover	md:bg-white object-center	 md:mx-auto lg:max-w-[1649px]"
   >
     <div class="flex justify-between relative">
       <h1 class="text-gray-800 font-semibold text-3xl">Holidays</h1>
@@ -27,7 +28,7 @@
         <HolidaysCard
             v-for="(holiday, index) in allHolidays"
             :holiday="holiday"
-            class="max-w-[350px] grow cursor-pointer"
+            class="max-w-[380px] grow cursor-pointer"
             data-test="holiday-card"
             :key="index"
             @click="goTo(index)"

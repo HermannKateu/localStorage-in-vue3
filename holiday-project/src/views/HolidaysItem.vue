@@ -54,6 +54,10 @@
           <span class="text-gray md:text-lg">Return</span>
           <h3 class="text-black text-base md:text-xl">{{ dayjs(holidayDetails.returnDate).format("dddd, D MMMM YYYY") }}</h3>
         </div>
+        <div class="md:w-6/12">
+          <span class="text-gray md:text-lg">Number Of Days</span>
+          <h3 class="text-black text-base md:text-xl">{{ holidayDetails.numberOfDays }}</h3>
+        </div>
       </div>
     </div>
   </section>
@@ -75,17 +79,18 @@ const router = useRouter();
 const shouldSHowDelete = ref<boolean>(false);
 const shouldDelete = ref<boolean>(false);
 const  holidayDetails = ref<HolidayInfo>({} as HolidayInfo);
-const allHolidays = ref<HolidayInfo[]>([]);
 
+window.addEventListener("load", () => {
+  holidays.value = JSON.parse(localStorage.getItem("allHolidays") as string);
+});
 onBeforeMount(() => {
-  allHolidays.value = holidays.value;
-  holidayDetails.value = allHolidays.value[Number(route.params.id as string)];
+  holidayDetails.value = holidays.value[Number(route.params.id as string)];
 });
 
 watch(() => shouldDelete.value, async (newValue) => {
   if (newValue){
-    allHolidays.value.splice(Number(route.params.id), 1);
-    localStorage.setItem("allHolidays", JSON.stringify(allHolidays.value));
+    holidays.value.splice(Number(route.params.id), 1);
+    localStorage.setItem("allHolidays", JSON.stringify(holidays.value));
     shouldSHowDelete.value = false;
     await router.push("/holiday-list");
   }

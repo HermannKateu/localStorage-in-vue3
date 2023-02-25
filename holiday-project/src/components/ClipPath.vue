@@ -1,5 +1,5 @@
 <template>
-  <div :class="['flex items-center justify-center font-bold', isCurrent ? 'bg-sky-900' : 'bg-sky-300']">
+  <div :class="['flex items-center justify-center font-bold', isCurrent ? 'bg-sky-900 stroke-white' : 'bg-sky-300']">
     {{label}} <Home />
   </div>
 </template>
@@ -14,7 +14,7 @@ defineProps({
   },
   isCurrent: {
     type: Boolean,
-    default: false,
+    default: true,
   }
 });
 </script>

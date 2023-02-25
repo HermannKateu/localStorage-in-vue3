@@ -148,21 +148,21 @@ const v$ = useVuelidate(rules, singUpData);
 const submitForm = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
-    if (!allUsers.length) {
+    if (!allUsers?.length) {
       allUsers.push(singUpData)
       currentUser.value = singUpData;
       localStorage.setItem("user", JSON.stringify(singUpData));
       localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
       await router.push("/home");
       return
-    } else if (allUsers.length && allUsers.every(user => user.email !== singUpData.email)) {
+    } else if (allUsers?.length && allUsers?.every(user => user.email !== singUpData.email)) {
       currentUser.value = singUpData;
       localStorage.setItem("user", JSON.stringify(singUpData));
       allUsers.push(singUpData)
       localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
       await router.push("/home");
       return
-    } else if (!!allUsers.find(user => user.email === singUpData.email)) {
+    } else if (!!allUsers?.find(user => user.email === singUpData.email)) {
       ownAccount.value = true;
       return
     }

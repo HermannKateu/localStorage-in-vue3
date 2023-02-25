@@ -1,5 +1,5 @@
 <template>
-  <div :class="['flex items-center justify-center font-bold', isCurrent ? 'bg-sky-900' : 'bg-sky-300']">
+  <div :class="['flex items-center justify-center font-bold', isCurrent ? 'bg-sky-900 text-white' : 'bg-sky-300']">
     {{label}}
   </div>
 </template>

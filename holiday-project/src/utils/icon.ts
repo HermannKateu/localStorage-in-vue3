@@ -2,12 +2,6 @@ import Contact from "../assets/icons/Contact.vue";
 import Settings from "../assets/icons/Settings.vue";
 import Documentation from "../assets/icons/Documentation.vue";
 import Email from "../assets/icons/Email.vue";
-import {currentUser} from "../store/loginStore";
-
-window.addEventListener("load", () => {
-   currentUser.value = JSON.parse(localStorage.getItem("user") as string);
-});
-
 
 export type Menu = {
     icon?: unknown;
@@ -37,6 +31,6 @@ export const icons: Menu[] = [
     {
         icon: Email,
         value: "Email",
-        list: [`Your mail is ${currentUser.value.email}`, "Creator email sontiahermann3@gmail.com"]
+        list: ["Creator email is sontiahermann3@gmail.com"]
     },
 ]

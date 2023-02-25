@@ -43,6 +43,7 @@
             class="w-5/12 grow md:w-3/12"
             v-model="numberOfDays"
             data-test="numDays"
+            :errors="v$.numberOfDays.$errors"
         />
         <DateInput
             class="w-5/12 grow md:w-3/12"
@@ -79,7 +80,7 @@ import {holidayOptions} from "../utils/data";
 import dayjs from "dayjs";
 import {HolidayInfo, KeyWord} from "../utils/type";
 import useVuelidate from "@vuelidate/core";
-import {helpers, required} from "@vuelidate/validators";
+import {helpers, required, requiredIf} from "@vuelidate/validators";
 import {holidays} from "../store/loginStore";
 import SuccessIcon from "../assets/Holidays-Icons/SuccessIcon.vue";
 import {useRouter} from "vue-router";
@@ -133,6 +134,9 @@ const rules = computed(() => {
     },
     type: {
       required: helpers.withMessage("The holiday type is required here", required),
+    },
+    numberOfDays: {
+      requiredIf: helpers.withMessage("The starting and ending shouldn't be equal", requiredIf(holidayInfo.starting === holidayInfo.ending)),
     },
     description: {
       required: helpers.withMessage("The holiday description is required here", required),
