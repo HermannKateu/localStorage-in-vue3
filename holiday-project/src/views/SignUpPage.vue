@@ -99,7 +99,6 @@ const ownAccount = ref(false);
 const router = useRouter();
 type UserType = {
   email: string;
-  age?: number;
   password: string;
   firstname: string;
   confirmPassword: string;
@@ -108,7 +107,6 @@ type UserType = {
 }
 const singUpData = reactive<UserType>({
   email: "",
-  age: 1,
   password: "",
   firstname: "",
   confirmPassword: "",

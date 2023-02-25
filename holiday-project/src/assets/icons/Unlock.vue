@@ -1,5 +1,5 @@
 <template>
-  <svg fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+  <svg  version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
        viewBox="0 0 512 512" xml:space="preserve">
 <path d="M368,0c-61.758,0-112,50.242-112,112v112H64c-17.672,0-32,14.328-32,32v224c0,17.672,14.328,32,32,32h288
 	c17.672,0,32-14.328,32-32V256c0-17.672-14.328-32-32-32h-32V112c0-26.469,21.531-48,48-48c26.469,0,48,21.531,48,48v80
