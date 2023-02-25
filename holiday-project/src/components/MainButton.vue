@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps({
   label: {
     type: String,
@@ -14,5 +14,3 @@ defineProps({
   },
 });
 </script>
-
-<style scoped></style>

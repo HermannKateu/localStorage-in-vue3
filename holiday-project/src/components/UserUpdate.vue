@@ -1,8 +1,10 @@
 <template>
   <SideWrapper>
+    <ModalWrapper :show="openModal" class="relative">
+      <CommonSpinner />
+    </ModalWrapper>
     <form
-        class="w-full flex flex-col md:my-16 md:py-5 gap-y-2"
-        @submit.prevent="submitForm"
+        class="w-full flex flex-col md:my-8 md:py-5 gap-y-2"
     >
       <h1 class="text-lg font-bold text-center text-blue-200">
         Update Account
@@ -11,34 +13,26 @@
           label="Email"
           id="border h-10"
           placeholder="Ex holidayexample@gmail.com"
-          v-model="singUpData.email"
+          v-model.trim="singUpData.email"
           :errors="v$.email.$errors"
           data-test="email-unput"
       />
       <PasswordInput
           label="Password"
-          v-model="singUpData.password"
+          v-model.trim="singUpData.password"
           :errors="v$.password.$errors"
           class="w-full"
           data-test="password-input"
       />
-      <PasswordInput
-          label="Password Confirmation"
-          v-model="singUpData.confirmPassword"
-          :errors="v$.confirmPassword.$errors"
-          class="w-full"
-          data-test-id="input-password"
-          data-test="password-input"
-      />
-      <div class="flex gap-x-4 w-full">
-        <TextInput class="w-1/2" v-model="singUpData.firstname" placeholder="firstname" label="Firstname" :errors="v$.firstname.$errors"/>
-        <TextInput class="w-1/2" v-model="singUpData.lastname" placeholder="lastname" label="Lastname" :errors="v$.lastname.$errors"/>
+        <TextInput class="w-full" v-model.trim="singUpData.firstname" placeholder="firstname" label="Firstname" :errors="v$.firstname.$errors"/>
+        <TextInput class="w-full" v-model.trim="singUpData.lastname" placeholder="lastname" label="Lastname" :errors="v$.lastname.$errors"/>
+        <div
+            @click.prevent="submitForm"
+            :class="['text-base items-center  justify-center text-white bg-blue-800 w-full h-10 font-bold rounded-md flex my-8',
+             hasUserChange ? 'cursor-pointer' : 'cursor-not-allowed'
+        ]">
+        Create Account
       </div>
-      <MainButton
-          label="Create Account"
-          class="text-base text-white bg-blue-800 w-full h-12 font-bold rounded-md flex hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-12 md:text-xl"
-          data-test="submit-button"
-      />
     </form>
     <div class="flex gap-x-3 items-center cursor-pointer text-sky-300 bottom-[90px] absolute md:bottom-[200px]" @click="$emit('close')">
       Close:  <ArrowRight class="hover:translate-x-4 duration-500"/>
@@ -49,34 +43,42 @@
 <script setup lang="ts">
 import SideWrapper from "../components/SideWrapper.vue";
 import ArrowRight from "../assets/holidays-foto/ArrowRight.vue";
-import {computed, reactive} from "vue";
+import {computed, onBeforeMount, reactive, ref} from "vue";
 import {email, helpers, minLength, required, sameAs} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
-import {allUsers, currentUser, FORM_DATA} from "../store/loginStore";
+import {allUsers, currentUser, FORM_DATA, User} from "../store/loginStore";
 import TextInput from "./TextInput.vue";
 import PasswordInput from "./PasswordInput.vue";
 import MainButton from "./MainButton.vue";
+import ModalWrapper from "./ModalWrapper.vue";
+import CommonSpinner from "./CommonSpinner.vue";
 
-defineEmits(["close"]);
+const emit = defineEmits(["close"]);
+const openModal = ref<boolean>(false);
+
+window.addEventListener("load", () => {
+  currentUser.value = JSON.parse(localStorage.getItem("user") as string);
+
+  singUpData.email = currentUser.value.email;
+  singUpData.firstname = currentUser.value.firstname as string;
+  singUpData.lastname = currentUser.value.lastname as string;
+  singUpData.password = currentUser.value.password;
+});
 
 type UserType = {
   email: string;
   age?: number;
   password: string;
   firstname: string;
-  confirmPassword: string;
   lastname: string;
 }
 
 const singUpData = reactive<UserType>({
   email: "",
-  age: 1,
   password: "",
   firstname: "",
-  confirmPassword: "",
   lastname: "",
 });
-
 
 const passwordValidator = (value: string): boolean =>
     /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/.test(value);
@@ -87,9 +89,6 @@ const rules = computed(() => {
       required: helpers.withMessage("your password is required here", required),
       minLength: minLength(8),
       passwordValidator: helpers.withMessage("your password should have at least one letter and one number", passwordValidator)
-    },
-    confirmPassword: {
-      sameAs: helpers.withMessage("your confirmation password should be the same with the one above", sameAs(singUpData.password))
     },
     firstname: {
       required: helpers.withMessage("your firstname is required here", required),
@@ -105,33 +104,31 @@ const rules = computed(() => {
 })
 
 const v$ = useVuelidate(rules, singUpData);
+
+const hasUserChange =
+    computed<boolean>(() => JSON.stringify({
+      email: singUpData.email,
+      password: singUpData.password,
+      firstname: singUpData.firstname,
+      lastname: singUpData.lastname
+    }) !== JSON.stringify({
+      email: currentUser.value.email,
+      password: currentUser.value.password,
+      firstname: currentUser.value.firstname,
+      lastname: currentUser.value.lastname
+    }))
 const submitForm = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
-  if (isFormValid){
-    if (!allUsers?.length) {
-      allUsers.push(singUpData)
-      currentUser.value = singUpData;
-      localStorage.setItem("user", JSON.stringify(singUpData));
-      localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
-      // await router.push("/home");
-      return
-    } else if (allUsers?.length && allUsers?.every(user => user.email !== singUpData.email)) {
-      currentUser.value = singUpData;
-      localStorage.setItem("user", JSON.stringify(singUpData));
-      allUsers.push(singUpData)
-      localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
-      // await router.push("/home");
-      return
-    } else if (!!allUsers?.find(user => user.email === singUpData.email)) {
-      // ownAccount.value = true;
-      return
-    }
+  if (isFormValid && hasUserChange.value){
+    allUsers.splice(allUsers.indexOf(allUsers.find(user => user.email === currentUser.value.email) as User), 1);
+    localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
+     currentUser.value = singUpData;
+     openModal.value = true;
+     setTimeout(() => {
+       localStorage.setItem("user", JSON.stringify(currentUser.value))
+       emit("close");
+       openModal.value = false;
+     },2000)
   }
 };
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false
-}
 </script>
