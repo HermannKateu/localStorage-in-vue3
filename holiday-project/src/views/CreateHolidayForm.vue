@@ -99,7 +99,7 @@ type NewHolidayType = {
   starting: string;
   type: KeyWord;
   ending: string;
-  numberOfDays?: string;
+  numberOfDays: string;
   creationDate?: string;
   returnDate?: string;
   description: string;
