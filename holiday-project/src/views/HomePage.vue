@@ -8,18 +8,9 @@
       >
         Hello, welcome to My Holiday Page
       </h1>
-      <span class="text-gray-800 text-sm text-center block md:hidden">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisl eget
-        consectetur amet, quam. Amet mattis adipiscing in massa. At erat
-        elementu
-      </span>
-      <span
-        class="text-gray-800 text-sm text-center hidden md:block md:text-xl"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisl eget
-        consectetur amet, quam. Amet mattis adipiscing in massa. At erat
-        elementum pharetra cursus laoreet risus. Placerat fames sit tristique
-        ornare erat magna tellus.
+      <span class="text-gray-800 text-sm text-center block">
+        The main object of this web site is to create a Holiday an be able to store the informations of this Holiday. And there are some functionalities
+        which allows you to them or recreate them
       </span>
     </div>
     <div class="flex flex-col md:flex-row md:gap-x-8 md:mx-auto md:w-6/12">

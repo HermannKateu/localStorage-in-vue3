@@ -18,11 +18,21 @@
         @input="$emit('update:modelValue', $event.target.value)"
         data-test="password-input"
       />
-      <LockIcon
-        class="w-12 h-5 absolute top-5 left-0 md:top-6 cursor-pointer"
-        fill="gray"
-        @click="type = !type"
-      />
+      <span
+          class="absolute top-5 left-0 md:top-6 cursor-pointer flex w-fit"
+          @click="type = !type"
+      >
+        <LockIcon
+            class="w-12 h-5"
+            fill="gray"
+            v-if="type"
+        />
+        <Unlock
+            v-else
+            class="w-12 h-5"
+            fill="gray"
+        />
+      </span>
       <div v-for="error in errors" v-if="errors.length" :key="error.$uid">
         <ErrorWrapper :message="error.$message" />
       </div>
@@ -36,6 +46,7 @@ import { ref } from "@vue/runtime-core";
 import {PropType, watch} from "vue";
 import {ErrorObject} from "@vuelidate/core";
 import ErrorWrapper from "./ErrorWrapper.vue";
+import Unlock from "../assets/icons/Unlock.vue";
 
 defineProps({
   modelValue: {
