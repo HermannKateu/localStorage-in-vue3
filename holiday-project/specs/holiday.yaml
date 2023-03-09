@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: HOLIDAYS Rest API
+  description: REST API endpoints for managing Holidays
+  version: 0.1.x-SNAPSHOT
+servers:
+  - url: 'https'
+  - url: 'http'
+paths:
+  /holidays:
+    get:
+      tags:
+        - Holiday
+      summary: Fetch Holidays
+      description: Fetch Holidays
+      operationId: getAllHolidays
+      parameters:
+        - name: fieldsToExtractCode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: specify the fields that will be present on the response
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HolidayDTO'
+  /holidays/{id}:
+    get:
+      tags:
+        - Holiday
+      summary: Fetch a Holiday by id
+      description: Fetch a Holiday by id
+      operationId: getHolidayById
+      parameters:
+        - name: id
+          description: the holiday's id to get
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fieldsToExtractCode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: specify the fields that will be present the response
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HolidayDTO'
+
+
+components:
+  schemas:
+    HolidayDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: identifier the holiday
+        startingDate:
+          type: string
+          format: date
+          description: the startingDate of the holiday
+        endingDate:
+          type: string
+          format: date
+          description: the endingDate of the holiday
+        returnDate:
+          type: string
+          format: date
+          description: the code of the speciality
+        description:
+          type: string
+          description: the description of the holiday
+        numberOfDays:
+          type: integer
+          description: the number of days of the holiday
+        createdAt:
+          type: string
+          format: date
+          description: the date of the holiday creation
+
+
+
+
+
+
