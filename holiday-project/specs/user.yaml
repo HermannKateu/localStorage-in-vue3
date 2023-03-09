@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  title: User Rest API
+  description: REST API endpoints for managing Holidays
+  version: 0.1.x-SNAPSHOT
+servers:
+  - url: 'https'
+  - url: 'http'
+paths:
+  /user/{id}:
+    get:
+      tags:
+        - User
+      summary: Fetch a User by email
+      description: Fetch a User by email
+      operationId: getUserByEmail
+      parameters:
+        - name: email
+          description: the user's id to get
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: fieldsToExtractCode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: specify the fields that will be present the response
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    put:
+        tags:
+          - User
+        summary: Update an existing User
+        description: Update an existing User
+        operationId: updateUser
+        parameters:
+          - name: email
+            description: the user's email to update
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+        requestBody:
+          description: User object that need to be edit
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        responses:
+          204:
+            description: Successful operation
+
+
+components:
+      schemas:
+        UserDTO:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            lastName:
+              type: string
+            firstName:
+              type: string
+            gender:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+
+
