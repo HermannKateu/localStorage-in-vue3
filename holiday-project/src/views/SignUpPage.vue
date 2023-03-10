@@ -58,7 +58,7 @@
             id="male"
             class="w-4 h-4"
             value="Male"
-            v-model="singUpData.sex"
+            v-model="singUpData.gender"
           />
         </label>
         <label
@@ -71,7 +71,7 @@
             id="female"
             value="Female"
             class="w-4 h-4 accent-pink-500"
-            v-model="singUpData.sex"
+            v-model="singUpData.gender"
           />
         </label>
       </div>
@@ -97,13 +97,14 @@ import useVuelidate from "@vuelidate/core";
 
 const ownAccount = ref(false);
 const router = useRouter();
+
 type UserType = {
   email: string;
   password: string;
   firstname: string;
   confirmPassword: string;
   lastname: string;
-  sex: string;
+  gender: string;
 }
 const singUpData = reactive<UserType>({
   email: "",
@@ -111,7 +112,7 @@ const singUpData = reactive<UserType>({
   firstname: "",
   confirmPassword: "",
   lastname: "",
-  sex: "",
+  gender: "",
 });
 
 
