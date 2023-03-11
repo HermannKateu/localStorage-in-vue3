@@ -1,51 +1,62 @@
 <template>
   <div
-    class="bg-gray-100 md:bg-white h-screen flex flex-col md:justify-center font-WorkSans md:h-fit"
+    class="bg-gray-100 md:bg-white mobile:min-h-screen flex flex-col md:h-auto md:justify-center font-WorkSans"
   >
     <div
       class="text-base md:text-xl leading-tight font-bold flex justify-center border border-gray-100 my-8 p-3 text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
       v-show="ownAccount"
       data-test="sign-up-error"
     >
-      It seems as if a user already have this email. If you are the one please
+      {{ t("sign-up.description_lbl") }}
       <span
         @click="$router.push('/')"
         class="pb-1 text-blue-200 underline text-base md:text-xl"
-        >Login</span
+        >{{ t("login_lbl") }}</span
       >
     </div>
     <form
-      class="px-4 w-full flex flex-col mx-auto md:my-16 md:px-8 md:border md:py-5 md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-2"
+      class="px-4 w-full flex flex-col mx-auto md:my-16 md:px-8 md:border md:py-5 md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-3"
       @submit.prevent="submitForm"
     >
       <h1 class="text-center text-2xl font-semibold md:text-4xl mt-5">
-        SignUp
+        {{ t("sign-up.title_lbl") }}
       </h1>
       <TextInput
-          label="Email"
+          :label="t('label.email_lbl')"
           placeholder="Ex holidayexample@gmail.com"
           v-model="singUpData.email"
           :errors="v$.email.$errors"
-          data-test="email-unput"
+          data-test="email-input"
       />
       <PasswordInput
-          label="Password"
+          :label="t('label.password_lbl')"
           v-model="singUpData.password"
           :errors="v$.password.$errors"
           class="w-full"
-          data-test="password-input"
+          data-test="password-input-1"
       />
       <PasswordInput
-          label="Password Confirmation"
+          :label="t('label.password_2_lbl')"
           v-model="singUpData.confirmPassword"
           :errors="v$.confirmPassword.$errors"
           class="w-full"
-          data-test-id="input-password"
-          data-test="password-input"
+          data-test="password-confirmation-input"
       />
       <div class="flex gap-x-4 w-full">
-        <TextInput class="w-1/2" v-model="singUpData.firstname" placeholder="firstname" label="Firstname" :errors="v$.firstname.$errors"/>
-        <TextInput class="w-1/2" v-model="singUpData.lastname" placeholder="lastname" label="Lastname" :errors="v$.lastname.$errors"/>
+        <TextInput class="w-1/2"
+                   v-model="singUpData.firstname"
+                   :placeholder="t('label.firstname_lbl')"
+                   :label="t('label.firstname_lbl')"
+                   :errors="v$.firstname.$errors"
+                   data-test="user-firstname"
+        />
+        <TextInput class="w-1/2"
+                   v-model="singUpData.lastname"
+                   :placeholder="t('label.lastname_lbl')"
+                   :label="t('label.lastname_lbl')"
+                   :errors="v$.lastname.$errors"
+                   data-test="user-lastname"
+        />
       </div>
       <div class="flex gap-x-12">
         <label
@@ -53,11 +64,10 @@
           class="text-base text-gray-500 flex items-center gap-x-2"
           >Male
           <input
+              data-test="male"
             type="radio"
-            name="sex"
-            id="male"
             class="w-4 h-4"
-            value="Male"
+            :value="t('gender.male_lbl')"
             v-model="singUpData.gender"
           />
         </label>
@@ -66,18 +76,17 @@
           class="text-base text-gray-500 flex items-center gap-x-2"
           >Female
           <input
+              data-test="female"
             type="radio"
-            name="sex"
-            id="female"
-            value="Female"
+            :value="t('gender.female_lbl')"
             class="w-4 h-4 accent-pink-500"
             v-model="singUpData.gender"
           />
         </label>
       </div>
       <MainButton
-        label="Create Account"
-        class="text-base text-white bg-blue-800 w-full h-12 font-bold rounded-md shadow-lg shadow-blue-400 flex hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-12 md:text-xl"
+        :label="t('label.create_btn')"
+        class="text-base text-white bg-blue-800 w-full h-12 font-bold rounded-md shadow-lg shadow-blue-400 flex hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-14 md:text-xl"
         data-test="submit-button"
       />
     </form>
@@ -86,14 +95,20 @@
 
 <script setup lang="ts">
 import {computed, reactive, ref} from "vue";
-import { FORM_DATA } from "../store/loginStore";
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import { allUsers, currentUser } from "../store/loginStore";
 import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import {email, helpers, minLength, required, sameAs} from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
+import { useI18n } from "vue-i18n";
+import {useAuthenticationStore} from "../store/authentication";
+import {User} from "../domain/user";
+
+const { t } = useI18n({
+  useScope: "global",
+  inheritLocale: true,
+});
 
 const ownAccount = ref(false);
 const router = useRouter();
@@ -147,24 +162,14 @@ const v$ = useVuelidate(rules, singUpData);
 const submitForm = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
-    if (!allUsers?.length) {
-      allUsers.push(singUpData)
-      currentUser.value = singUpData;
-      localStorage.setItem("user", JSON.stringify(singUpData));
-      localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
-      await router.push("/home");
-      return
-    } else if (allUsers?.length && allUsers?.every(user => user.email !== singUpData.email)) {
-      currentUser.value = singUpData;
-      localStorage.setItem("user", JSON.stringify(singUpData));
-      allUsers.push(singUpData)
-      localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
-      await router.push("/home");
-      return
-    } else if (!!allUsers?.find(user => user.email === singUpData.email)) {
-      ownAccount.value = true;
-      return
-    }
+    await useAuthenticationStore().createUser(new User({
+      email: singUpData.email,
+      password: singUpData.confirmPassword,
+      lastName: singUpData.lastname,
+      firstName: singUpData.firstname,
+      gender: singUpData.gender
+    }));
+    await router.push("/home");
   }
 };
 </script>

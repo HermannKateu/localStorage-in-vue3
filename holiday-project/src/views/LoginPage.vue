@@ -62,7 +62,7 @@
       <span
           @click="goToSignUpPage"
           class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm cursor-pointer"
-          data-test-id="sign-up-button"
+          data-test="sign-up-button"
       >
         SignUp
       </span>

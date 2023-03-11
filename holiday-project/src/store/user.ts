@@ -1,26 +1,5 @@
-import {defineStore} from "pinia";
-import {User} from "../domain/user";
-import {AuthService} from "../services/authentication";
+import { defineStore } from "pinia";
 
-export const useUserStore = defineStore({
-    id: "user",
-    actions: {
-        async createUser(user: User): Promise<string>{
-            let userId: string = ""
-            try {
-                userId = await AuthService.createUser({
-                    requestBody: {
-                        email: user.email,
-                        password: user.password,
-                        lastName: user.lastName,
-                        firstName: user.firstName,
-                        gender: user.gender
-                    }
-                })
-            }catch (error) {
-                console.log(error)
-            }
-            return userId;
-        }
-    }
-})
+export const useAuthenticationStore = defineStore({
+  id: "authentication",
+});

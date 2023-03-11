@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-1">
-    <label class="text-gray-300 text-lg font-WorkSans">
+    <label class="text-gray-300 text-lg font-WorkSans text-black">
       {{ label }}
     </label>
     <div class="relative">
@@ -16,7 +16,6 @@
           autocomplete="on"
           :value="modelValue"
           @input="$emit('update:modelValue', $event.target.value)"
-          data-test="password-input"
       />
       <WrapperIcon
           class="w-11 h-4 absolute top-5 left-0 md:top-6"
