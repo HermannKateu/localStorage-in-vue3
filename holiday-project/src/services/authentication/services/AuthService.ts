@@ -28,6 +28,9 @@ export class AuthService {
             url: '/auth/signup',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                403: `P2002 | P2005`,
+            },
         });
     }
 

@@ -26,13 +26,13 @@
       />
         <TextInput class="w-full" v-model.trim="singUpData.firstname" placeholder="firstname" label="Firstname" :errors="v$.firstname.$errors"/>
         <TextInput class="w-full" v-model.trim="singUpData.lastname" placeholder="lastname" label="Lastname" :errors="v$.lastname.$errors"/>
-        <div
-            @click.prevent="submitForm"
-            :class="['text-base items-center  justify-center text-white bg-blue-800 w-full h-10 font-bold rounded-md flex my-8',
-             hasUserChange ? 'cursor-pointer' : 'cursor-not-allowed'
-        ]">
-        Create Account
-      </div>
+<!--        <div-->
+<!--            @click.prevent="submitForm"-->
+<!--            :class="['text-base items-center  justify-center text-white bg-blue-800 w-full h-10 font-bold rounded-md flex my-8',-->
+<!--             hasUserChange ? 'cursor-pointer' : 'cursor-not-allowed'-->
+<!--        ]">-->
+<!--        Create Account-->
+<!--      </div>-->
     </form>
     <div class="flex gap-x-3 items-center cursor-pointer text-sky-300 bottom-[90px] absolute md:bottom-[200px]" @click="$emit('close')">
       Close:  <ArrowRight class="hover:translate-x-4 duration-500"/>
@@ -57,12 +57,12 @@ const emit = defineEmits(["close"]);
 const openModal = ref<boolean>(false);
 
 window.addEventListener("load", () => {
-  currentUser.value = JSON.parse(localStorage.getItem("user") as string);
-
-  singUpData.email = currentUser.value.email;
-  singUpData.firstname = currentUser.value.firstname as string;
-  singUpData.lastname = currentUser.value.lastname as string;
-  singUpData.password = currentUser.value.password;
+  // currentUser.value = JSON.parse(localStorage.getItem("user") as string);
+  //
+  // singUpData.email = currentUser.value.email;
+  // singUpData.firstname = currentUser.value.firstname as string;
+  // singUpData.lastname = currentUser.value.lastname as string;
+  // singUpData.password = currentUser.value.password;
 });
 
 type UserType = {
@@ -105,30 +105,30 @@ const rules = computed(() => {
 
 const v$ = useVuelidate(rules, singUpData);
 
-const hasUserChange =
-    computed<boolean>(() => JSON.stringify({
-      email: singUpData.email,
-      password: singUpData.password,
-      firstname: singUpData.firstname,
-      lastname: singUpData.lastname
-    }) !== JSON.stringify({
-      email: currentUser.value.email,
-      password: currentUser.value.password,
-      firstname: currentUser.value.firstname,
-      lastname: currentUser.value.lastname
-    }))
+// const hasUserChange =
+//     computed<boolean>(() => JSON.stringify({
+//       email: singUpData.email,
+//       password: singUpData.password,
+//       firstname: singUpData.firstname,
+//       lastname: singUpData.lastname
+//     }) !== JSON.stringify({
+//       email: currentUser.value.email,
+//       password: currentUser.value.password,
+//       firstname: currentUser.value.firstname,
+//       lastname: currentUser.value.lastname
+//     }))
 const submitForm = async (): Promise<void> => {
-  const isFormValid = await v$.value.$validate();
-  if (isFormValid && hasUserChange.value){
-    allUsers.splice(allUsers.indexOf(allUsers.find(user => user.email === currentUser.value.email) as User), 1);
-    localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
-     currentUser.value = singUpData;
-     openModal.value = true;
-     setTimeout(() => {
-       localStorage.setItem("user", JSON.stringify(currentUser.value))
-       emit("close");
-       openModal.value = false;
-     },2000)
-  }
+  // const isFormValid = await v$.value.$validate();
+  // if (isFormValid && hasUserChange.value){
+  //   allUsers.splice(allUsers.indexOf(allUsers.find(user => user.email === currentUser.value.email) as User), 1);
+  //   localStorage.setItem(FORM_DATA, JSON.stringify(allUsers));
+  //    currentUser.value = singUpData;
+  //    openModal.value = true;
+  //    setTimeout(() => {
+  //      localStorage.setItem("user", JSON.stringify(currentUser.value))
+  //      emit("close");
+  //      openModal.value = false;
+  //    },2000)
+  // }
 };
 </script>

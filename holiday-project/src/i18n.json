@@ -1,8 +1,40 @@
 {
   "en": {
-
+    "login_lbl": "Login",
+    "sign-up": {
+      "title_lbl": "Sign-up",
+      "description_lbl": "It seems as if a user already have this email. If you are the one please"
+    },
+    "gender": {
+      "male_lbl": "Male",
+      "female_lbl": "Female"
+    },
+    "label":{
+      "email_lbl": "E-mail",
+      "password_lbl": "Password",
+      "password_2_lbl": "Password Confirmation",
+      "firstname_lbl": "Firstname",
+      "lastname_lbl": "Lastname",
+      "create_btn": "Create Account"
+    }
   },
   "fr": {
-
+    "login_lbl": "Connexion",
+    "sign-up": {
+      "title_lbl": "S'inscrire",
+      "description_lbl": "Il semble qu'un utilisateur ait déjà cet e-mail. Si vous êtes celui s'il vous plaît"
+    },
+    "gender": {
+      "male_lbl":  "Male",
+      "female_lbl": "Female"
+    },
+    "label": {
+      "email_lbl": "E-mail",
+      "password_lbl": "Mot de passe",
+      "password_2_lbl": "Confirmation du mot passe",
+      "firstname_lbl": "Prénom",
+      "lastname_lbl":  "Nom",
+      "create_btn":  "Créer un compte"
+    }
   }
 }

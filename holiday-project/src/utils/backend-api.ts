@@ -5,9 +5,9 @@ import {OpenAPI as holidayOpenApi} from "../services/holiday";
 export const prepareApis = (): void => {
 
     userOpenApi.BASE =
-        import.meta.env.VITE_REST_API_BASE_URL + "/ichinomiya-motors";
-    authenticationOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/vehicle";
-    holidayOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/pricing";
+        import.meta.env.VITE_REST_API_BASE_URL + "/user";
+    authenticationOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/authentication";
+    holidayOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/holiday";
 
     userOpenApi.TOKEN = getPublicAccessToken;
     authenticationOpenApi.TOKEN = getPublicAccessToken;
@@ -33,6 +33,5 @@ const customHeaders = async (): Promise<Record<string, string>> => {
         Authorization: `Bearer ${
             publicAccessToken === null ? "" : publicAccessToken
         }`,
-        "tenant-id": "ichinomiya-motors",
     };
 };

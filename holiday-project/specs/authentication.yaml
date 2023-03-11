@@ -29,6 +29,8 @@ paths:
               schema:
                 type: string
                 format: uuid
+        403:
+          description: P2002 | P2005
 
 components:
   schemas:
