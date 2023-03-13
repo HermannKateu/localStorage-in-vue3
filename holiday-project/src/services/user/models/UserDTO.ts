@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 export type UserDTO = {
-    id?: string;
+    id?: number;
     lastName?: string;
     firstName?: string;
     gender?: string;

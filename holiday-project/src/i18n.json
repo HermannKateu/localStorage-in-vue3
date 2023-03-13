@@ -1,6 +1,10 @@
 {
   "en": {
     "login_lbl": "Login",
+    "login": {
+      "auth_lbl": "Sorry but it seems you do not appear to have an account please",
+      "description_lbl": "Login into your account to see your personal information."
+    },
     "sign-up": {
       "title_lbl": "Sign-up",
       "description_lbl": "It seems as if a user already have this email. If you are the one please"
@@ -16,10 +20,18 @@
       "firstname_lbl": "Firstname",
       "lastname_lbl": "Lastname",
       "create_btn": "Create Account"
+    },
+    "error": {
+      "email_lbl": "This user already exists.If you are the one please sign in",
+      "password_lbl": "Your password is incorrect"
     }
   },
   "fr": {
     "login_lbl": "Connexion",
+    "login": {
+      "auth_lbl": "Désolé mais il semble que vous n'ayez pas de compte veillez",
+      "description_lbl": "Connectez-vous à votre compte pour voir vos informations personnelles."
+    },
     "sign-up": {
       "title_lbl": "S'inscrire",
       "description_lbl": "Il semble qu'un utilisateur ait déjà cet e-mail. Si vous êtes celui s'il vous plaît"
@@ -35,6 +47,10 @@
       "firstname_lbl": "Prénom",
       "lastname_lbl":  "Nom",
       "create_btn":  "Créer un compte"
+    },
+    "error": {
+      "email_lbl":  "Cet utilisateur existe déjà.Si vous êtes celui la, veuillez vous connecter",
+      "password_lbl": "Votre mot de passe est incorrect"
     }
   }
 }

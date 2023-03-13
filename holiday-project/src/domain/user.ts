@@ -3,8 +3,8 @@ import {UserDTO} from "../services/user";
 export class User {
     constructor(private user: UserDTO) {}
 
-    get id(): string{
-        return this.user.id ? this.user.id : "";
+    get id(): number {
+        return this.user.id ? this.user.id : 0;
     }
 
     get gender(): string{

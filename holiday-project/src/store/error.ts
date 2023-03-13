@@ -3,7 +3,7 @@ import {defineStore} from "pinia";
 type State = {
     error: {
         password: string,
-        user: string
+        email: string
     }
 }
 export const useErrorStore = defineStore({

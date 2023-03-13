@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import {User} from "../domain/user";
 import { AuthService } from "../services/authentication";
 import {useErrorStore} from "./error";
+import {ERROR} from "../utils/enum";
 
 export const useAuthenticationStore = defineStore({
     id: "authentication",
@@ -19,13 +20,29 @@ export const useAuthenticationStore = defineStore({
                     }
                 })
             }catch (error) {
-                switch (error) {
+                switch (error.body) {
                     case "P2002": {
-                        useErrorStore().error.user = "This user already exists. If you are the one please sign up";
+                        useErrorStore().error.email = ERROR.P2002;
                         break;
                     }
+                }
+            }
+            return userId;
+        },
+
+        async connectUser(user: User): Promise<string>{
+            let userId: string = ""
+            try {
+                userId = await AuthService.createUser({
+                    requestBody: {
+                        email: user.email,
+                        password: user.password,
+                    }
+                })
+            }catch (error) {
+                switch (error.body) {
                     case "P2005": {
-                        useErrorStore().error.password = "The password is incorrect";
+                        useErrorStore().error.password = ERROR.P2002;
                         break;
                     }
                 }
