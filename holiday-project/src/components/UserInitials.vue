@@ -6,8 +6,4 @@
 
 <script setup lang="ts">
 import { currentUser } from "../store/loginStore";
-
-window.addEventListener("load", () => {
-  currentUser.value = JSON.parse(localStorage.getItem("user") as string);
-});
 </script>

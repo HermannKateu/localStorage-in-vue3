@@ -18,6 +18,7 @@ const defaultLanguage = (): string => {
     return result;
 };
 const locale = defaultLanguage();
+
 const i18n = createI18n({
     locale,
     legacy: false,

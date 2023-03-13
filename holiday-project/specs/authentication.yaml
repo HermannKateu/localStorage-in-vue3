@@ -30,7 +30,31 @@ paths:
                 type: string
                 format: uuid
         403:
-          description: P2002 | P2005
+          description: P2002
+  /auth/signin:
+    post:
+      tags:
+        - Auth
+      summary: Connect a user
+      description: Connect a user
+      operationId: connectUser
+      requestBody:
+        description: User object that need to connected
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthDTO'
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        403:
+          description: P2005 | P2006
 
 components:
   schemas:
@@ -38,8 +62,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          type: integer
         lastName:
           type: string
         firstName:

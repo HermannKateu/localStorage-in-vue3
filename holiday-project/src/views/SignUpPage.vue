@@ -3,19 +3,22 @@
     class="bg-gray-100 md:bg-white mobile:min-h-screen flex flex-col md:h-auto md:justify-center font-WorkSans"
   >
     <div
-      class="text-base md:text-xl leading-tight font-bold flex justify-center border border-gray-100 my-8 p-3 text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
-      v-show="ownAccount"
+      class="text-base md:text-xl max-w-[550px] leading-tight font-bold flex
+       justify-center border border-gray-100 my-8 p-3 text-center rounded-md mx-auto
+        px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
+      v-if="errorStore.email"
       data-test="sign-up-error"
     >
       {{ t("sign-up.description_lbl") }}
       <span
         @click="$router.push('/')"
-        class="pb-1 text-blue-200 underline text-base md:text-xl"
+        class="pb-1 cursor-pointer px-2 text-blue-200 underline text-base md:text-xl"
         >{{ t("login_lbl") }}</span
       >
     </div>
     <form
-      class="px-4 w-full flex flex-col mx-auto md:my-16 md:px-8 md:border md:py-5 md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-3"
+      class="px-4 w-full flex flex-col mt-8 mx-auto md:px-8 md:border md:py-5
+      md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-3"
       @submit.prevent="submitForm"
     >
       <h1 class="text-center text-2xl font-semibold md:text-4xl mt-5">
@@ -43,19 +46,21 @@
           data-test="password-confirmation-input"
       />
       <div class="flex gap-x-4 w-full">
-        <TextInput class="w-1/2"
-                   v-model="singUpData.firstname"
-                   :placeholder="t('label.firstname_lbl')"
-                   :label="t('label.firstname_lbl')"
-                   :errors="v$.firstname.$errors"
-                   data-test="user-firstname"
+        <TextInput
+            class="w-1/2"
+            v-model="singUpData.firstname"
+            :placeholder="t('label.firstname_lbl')"
+            :label="t('label.firstname_lbl')"
+            :errors="v$.firstname.$errors"
+            data-test="user-firstname"
         />
-        <TextInput class="w-1/2"
-                   v-model="singUpData.lastname"
-                   :placeholder="t('label.lastname_lbl')"
-                   :label="t('label.lastname_lbl')"
-                   :errors="v$.lastname.$errors"
-                   data-test="user-lastname"
+        <TextInput
+            class="w-1/2"
+            v-model="singUpData.lastname"
+            :placeholder="t('label.lastname_lbl')"
+            :label="t('label.lastname_lbl')"
+            :errors="v$.lastname.$errors"
+            data-test="user-lastname"
         />
       </div>
       <div class="flex gap-x-12">
@@ -94,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, reactive, ref} from "vue";
+import {computed, reactive, ref, watch} from "vue";
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
 import {useRouter} from "vue-router";
@@ -104,13 +109,14 @@ import useVuelidate from "@vuelidate/core";
 import { useI18n } from "vue-i18n";
 import {useAuthenticationStore} from "../store/authentication";
 import {User} from "../domain/user";
+import {useErrorStore} from "../store/error";
+import { Error } from "../utils/type"
 
 const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 });
 
-const ownAccount = ref(false);
 const router = useRouter();
 
 type UserType = {
@@ -155,10 +161,14 @@ const rules = computed(() => {
       email
     },
   }
-})
+});
 
-const v$ = useVuelidate(rules, singUpData);
+const $externalResults = reactive({} as Error);
 
+const v$ = useVuelidate(rules, singUpData, {
+  $externalResults,
+});
+const errorStore = computed(() => useErrorStore().error);
 const submitForm = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
@@ -169,7 +179,21 @@ const submitForm = async (): Promise<void> => {
       firstName: singUpData.firstname,
       gender: singUpData.gender
     }));
+      if (errorStore.value.email) {
+        Object.assign($externalResults, { email: t(errorStore.value.email) });
+      return;
+    }
     await router.push("/home");
   }
 };
+
+
+watch(
+    () => singUpData.email,
+    (newValue) => {
+      if (newValue && $externalResults.email) {
+        Object.assign($externalResults, { email: "" });
+      }
+    }
+);
 </script>

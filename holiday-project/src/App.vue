@@ -1,6 +1,10 @@
 <template>
   <div>
-    <HeaderSection class="sticky top-0 z-50" @show-details="showUpdateModal" @show-update="showUpdateModal"/>
+    <HeaderSection
+        class="sticky top-0 z-50"
+        @show-details="showUpdateModal"
+        @show-update="showUpdateModal"
+    />
     <section class="flex w-full">
       <router-view :class="['z-30 overscroll-x-none scroll', showShowDetails || showShowUpdate ? 'w-10/12' : 'w-full']"></router-view>
       <UserDetails v-if="showShowDetails" @close="showShowDetails = false"/>
@@ -40,10 +44,3 @@ const showUpdateModal = (value: string): void => {
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-</style>

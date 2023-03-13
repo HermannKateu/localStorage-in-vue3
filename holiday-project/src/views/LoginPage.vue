@@ -7,12 +7,12 @@
       v-show="isUserDataCorrect"
       data-test="login-error-msg"
     >
-      Sorry but it seems you do not appear to have an account
-      please<span
+      {{ t("login.auth_lbl") }}
+      <span
         @click="goToSignUpPage"
         class="pl-1 text-blue-200 underline text-sm md:text-lg"
       >
-        SignUp
+      {{ t("sign-up.title_lbl") }}
       </span>
     </div>
     <form
@@ -23,14 +23,15 @@
         class="flex text-gray-800 flex-col font-WorkSans gap-y-1 pt-16 mb-4 md:items-center md:pt-18 md:gap-y-0"
       >
         <h1 class="font-semibold text-3xl md:text-5xl" data-test="title">
-          Login
+          {{ t("login_lbl") }}
         </h1>
         <h3 class="text-base">
-          Login into your account to see your personal information.
+          {{ t("login.description_lbl") }}
         </h3>
       </div>
       <div class="flex flex-col gap-y-4">
           <TextInput
+              data-test="email-input"
               label="Email"
               placeholder="Enter your email..."
               v-model="loginInformation.email"
@@ -39,7 +40,7 @@
           <PasswordInput
             v-model="loginInformation.password"
             class="w-full"
-            data-test-id="password"
+            data-test="password-input"
             :errors="v$.password.$errors"
           />
       </div>
@@ -55,7 +56,7 @@
         >
       </div>
       <MainButton
-        label="LOGIN"
+        :label="t('login_lbl')?.toUpperCase()"
         class="text-xl shadow-sm shadow-blue-600 my-12 flex flex-col justify-center items-center font-bold bg-blue-100 font-WorkSans uppercase rounded-md w-full text-center text-white h-12"
         data-test="login-button"
       />
@@ -64,7 +65,7 @@
           class="underline decoration-1 text-sm font-bold text-blue-100 font-WorkSans flex justify-end mb-6 md:text-sm cursor-pointer"
           data-test="sign-up-button"
       >
-        SignUp
+        {{ t("sign-up.title_lbl") }}
       </span>
     </form>
   </div>
@@ -73,18 +74,30 @@
 <script setup lang="ts">
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import {allUsers, currentUser, isLogin, User} from "../store/loginStore";
 import { reactive, ref } from "@vue/runtime-core";
 import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import useVuelidate from "@vuelidate/core";
 import {email, helpers, minLength, required} from "@vuelidate/validators";
-import {onBeforeMount} from "vue";
+import {onBeforeMount, watch} from "vue";
+import {useI18n} from "vue-i18n";
+import {useAuthenticationStore} from "../store/authentication";
+import { User } from "../domain/user";
+import {Error} from "../utils/type";
+
+const { t } = useI18n({
+  useScope: "global",
+  inheritLocale: true,
+});
 
 const isUserDataCorrect = ref(false);
 const router = useRouter();
 
-const loginInformation = reactive<User>({
+type UserType = {
+  email: string;
+  password: string;
+}
+const loginInformation = reactive<UserType>({
   email: "",
   password: "",
 });
@@ -100,30 +113,51 @@ const rules = {
   },
 }
 
+const $externalResults = reactive({} as Error);
+
+
 const goToSignUpPage = (): void => {
    router.push("/sign-up");
 };
 
-const v$ = useVuelidate(rules, loginInformation);
+const v$ = useVuelidate(rules, loginInformation, {
+  $externalResults
+});
+
 const users = ref<User[]>([])
 onBeforeMount(() => {
    users.value = JSON.parse(localStorage.getItem("form") as string);
 })
 const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
-  if (isFormValid){
-    if (users.value?.length > 0){
-      if (users.value?.some(user => user.email === loginInformation.email && user.password === loginInformation.password)){
-        isLogin.value = true;
-        currentUser.value = users.value.find(user => user.email === loginInformation.email) as User;
-        await router.push("/home");
-        return;
-      }
-    }
-      isLogin.value = false;
-      isUserDataCorrect.value = true;
+  if (isFormValid) {
+    await useAuthenticationStore().connectUser(new User({
+      email: loginInformation.email,
+      password: loginInformation.password
+    }));
+    await router.push("/home");
+    isUserDataCorrect.value = true;
   }
 };
+
+
+watch(
+    () => loginInformation.email,
+    (newValue) => {
+      if (newValue && $externalResults.email) {
+        Object.assign($externalResults, { email: "" });
+      }
+    }
+);
+
+watch(
+    () => loginInformation.password,
+    (newValue) => {
+      if (newValue && $externalResults.password) {
+        Object.assign($externalResults, { password: "" });
+      }
+    }
+);
 </script>
 
 <style scoped>

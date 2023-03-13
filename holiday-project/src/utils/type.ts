@@ -12,3 +12,8 @@ export type HolidayInfo = {
     returnDate?: string;
     description?: string;
 }
+
+export type Error = {
+    password: string;
+    email: string;
+}
