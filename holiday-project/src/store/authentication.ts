@@ -33,7 +33,7 @@ export const useAuthenticationStore = defineStore({
         async connectUser(user: User): Promise<string>{
             let userId: string = ""
             try {
-                userId = await AuthService.createUser({
+                userId = await AuthService.connectUser({
                     requestBody: {
                         email: user.email,
                         password: user.password,

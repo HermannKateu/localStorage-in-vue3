@@ -1,23 +1,23 @@
 /// <reference types="cypress" />
+
+import {useCypressCommands} from "../../utils/common";
+
+const { login } = useCypressCommands();
+
 describe("Sign in", () => {
     beforeEach(() => {
         cy.visit("/");
     });
 
     it("should be successful when the user informations are corrects", () => {
-        fillUserForm({
-            email: "sontiakateu123",
-            password: "1234qwerty"
-        })
+        cy.intercept({
+            method: "POST",
+            url: "/authentication/auth/signin"
+        }, {
+            statusCode: 201,
+        }).as("connect-user")
+        login("sontiahermann3@gmail.com", "Kher@mann123");
+        cy.get("[data-test='login-button']").click();
+        cy.wait("@connect-user")
     });
-
-    type User = {
-        email?: string;
-        password?: string;
-    };
-
-    const fillUserForm = (user: User): void => {
-        cy.get("[data-test='email-input']").type(user.email)
-        cy.get("[data-test='password-input-1']").type(user.password)
-    }
 });
