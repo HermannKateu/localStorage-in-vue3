@@ -3,7 +3,9 @@
     "login_lbl": "Login",
     "login": {
       "auth_lbl": "Sorry but it seems you do not appear to have an account please",
-      "description_lbl": "Login into your account to see your personal information."
+      "description_lbl": "Login into your account to see your personal information.",
+      "remember_lbl": "Remember me !",
+      "forgotten_lbl": "Forgot password ?"
     },
     "sign-up": {
       "title_lbl": "Sign-up",
@@ -29,6 +31,8 @@
   "fr": {
     "login_lbl": "Connexion",
     "login": {
+      "remember_lbl": "Souviens-toi de moi !",
+      "forgotten_lbl": "Mot de passe oublié ?",
       "auth_lbl": "Désolé mais il semble que vous n'ayez pas de compte veillez",
       "description_lbl": "Connectez-vous à votre compte pour voir vos informations personnelles."
     },

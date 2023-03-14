@@ -4,7 +4,7 @@
   >
     <div
       class="text-base md:text-xl font-bold flex justify-center border border-gray-100 my-8 py-2 leading-tight text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
-      v-show="isUserDataCorrect"
+      v-if="errorStore.email"
       data-test="login-error-msg"
     >
       {{ t("login.auth_lbl") }}
@@ -32,27 +32,28 @@
       <div class="flex flex-col gap-y-4">
           <TextInput
               data-test="email-input"
-              label="Email"
-              placeholder="Enter your email..."
+              :label="t('label.email_lbl')"
+              placeholder="Ex holidayexample@gmail.com"
               v-model="loginInformation.email"
               :errors="v$.email.$errors"
           />
           <PasswordInput
-            v-model="loginInformation.password"
-            class="w-full"
-            data-test="password-input"
-            :errors="v$.password.$errors"
+              :label="t('label.password_lbl')"
+              v-model="loginInformation.password"
+              class="w-full"
+              data-test="password-input-1"
+              :errors="v$.password.$errors"
           />
       </div>
       <div class="flex justify-between my-4 font-WorkSans">
         <div class="text-gray text-base flex gap-x-3">
           <input type="checkbox" name="sign-in" id="sing-in" class="w-5 h-5" />
-          <span>Remember me !</span>
+          <span>{{ t("login.remember_lbl") }}</span>
         </div>
         <a
           href="#"
           class="underline text-blue-100 text-base font-WorkSans"
-          >Forgot password ?</a
+          >{{ t("login.forgotten_lbl") }}</a
         >
       </div>
       <MainButton
@@ -74,23 +75,23 @@
 <script setup lang="ts">
 import PasswordInput from "../components/PasswordInput.vue";
 import MainButton from "../components/MainButton.vue";
-import { reactive, ref } from "@vue/runtime-core";
+import { reactive } from "@vue/runtime-core";
 import {useRouter} from "vue-router";
 import TextInput from "../components/TextInput.vue";
 import useVuelidate from "@vuelidate/core";
 import {email, helpers, minLength, required} from "@vuelidate/validators";
-import {onBeforeMount, watch} from "vue";
+import {computed, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {useAuthenticationStore} from "../store/authentication";
 import { User } from "../domain/user";
 import {Error} from "../utils/type";
+import {useErrorStore} from "../store/error";
 
 const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
 });
 
-const isUserDataCorrect = ref(false);
 const router = useRouter();
 
 type UserType = {
@@ -112,6 +113,7 @@ const rules = {
     minLength: minLength(8),
   },
 }
+const errorStore = computed(() => useErrorStore().error);
 
 const $externalResults = reactive({} as Error);
 
@@ -123,11 +125,6 @@ const goToSignUpPage = (): void => {
 const v$ = useVuelidate(rules, loginInformation, {
   $externalResults
 });
-
-const users = ref<User[]>([])
-onBeforeMount(() => {
-   users.value = JSON.parse(localStorage.getItem("form") as string);
-})
 const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid) {
@@ -135,8 +132,17 @@ const loginUser = async (): Promise<void> => {
       email: loginInformation.email,
       password: loginInformation.password
     }));
+
+    if (errorStore.value.email || errorStore.value.password){
+      if (errorStore.value.email) {
+        Object.assign($externalResults, { email: t(errorStore.value.email) });
+      }
+      if(errorStore.value.password) {
+        Object.assign($externalResults, { password: t(errorStore.value.password) });
+      }
+      return;
+    }
     await router.push("/home");
-    isUserDataCorrect.value = true;
   }
 };
 
