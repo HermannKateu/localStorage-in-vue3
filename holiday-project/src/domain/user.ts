@@ -1,7 +1,10 @@
 import {UserDTO} from "../services/user";
 
 export class User {
-    constructor(private user: UserDTO) {}
+    isNull = true
+    constructor(private user: UserDTO) {
+        this.isNull = false;
+    }
 
     get id(): number {
         return this.user.id ? this.user.id : 0;
@@ -27,3 +30,9 @@ export class User {
         return this.user.password ? this.user.password : "";
     }
 }
+
+export const newNullUser = (): User => {
+    const user: User = new User({} as User);
+    user.isNull = true;
+    return user;
+};

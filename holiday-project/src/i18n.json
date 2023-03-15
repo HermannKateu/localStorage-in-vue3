@@ -13,6 +13,9 @@
     },
     "gender": {
       "male_lbl": "Male",
+      "welcome": {
+        "title_lbl": ""
+      },
       "female_lbl": "Female"
     },
     "label":{
@@ -25,7 +28,19 @@
     },
     "error": {
       "email_lbl": "This user already exists.If you are the one please sign in",
-      "password_lbl": "Your password is incorrect"
+      "password_lbl": "Your password is incorrect",
+      "invalid_lbl": "This user doesn't exist"
+    },
+    "header": {
+      "details_lbl": "Display User Details",
+      "update_lbl": "Update User",
+      "logout_lbl": "Logout"
+    },
+    "welcome":  {
+      "title_lbl": "Hello, welcome to My Holiday Page",
+      "description_lbl": "The main objective of this web site is to create a Holiday an be able to store the informations of this Holiday. And there are some functionalities which allows you to them or recreate them",
+      "label_create": "Create new holiday",
+      "label_list": "Holiday list"
     }
   },
   "fr": {
@@ -54,7 +69,19 @@
     },
     "error": {
       "email_lbl":  "Cet utilisateur existe déjà.Si vous êtes celui la, veuillez vous connecter",
-      "password_lbl": "Votre mot de passe est incorrect"
+      "password_lbl": "Votre mot de passe est incorrect",
+      "invalid_lbl": "Cet utilisateur n'existe pas"
+    },
+    "header":  {
+      "details_lbl":  "Afficher les détails de l'utilisateur",
+      "update_lbl":  "Mettre à jour l'utilisateur",
+      "logout_lbl": "Déconnecter"
+    },
+    "welcome":  {
+      "title_lbl": "Bonjour, bienvenue sur Ma Page Congés",
+      "description_lbl": "L'objetive principal de ce site web est de créer un séjour et de pouvoir stocker les informations de ce séjour. Et il y a quelques fonctionnalités qui vous permettent de les ou de les recréer",
+      "label_create": "Créer de nouvelles vacances",
+      "label_list": "Liste des Congés"
     }
   }
 }

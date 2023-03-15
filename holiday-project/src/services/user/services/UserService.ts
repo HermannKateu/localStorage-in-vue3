@@ -15,25 +15,17 @@ export class UserService {
      * @returns UserDTO successful operation
      * @throws ApiError
      */
-    public static getUserByEmail({
-        email,
+    public static getUser({
         fieldsToExtractCode,
     }: {
         /**
-         * the user's id to get
-         */
-        email: string,
-        /**
-         * specify the fields that will be present the response
+         * specify the fields that will be present in the response
          */
         fieldsToExtractCode: string,
     }): CancelablePromise<UserDTO> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/user/{id}',
-            path: {
-                'email': email,
-            },
+            url: '/users/user',
             query: {
                 'fieldsToExtractCode': fieldsToExtractCode,
             },
@@ -61,7 +53,7 @@ export class UserService {
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/user/{id}',
+            url: '/users/user',
             path: {
                 'email': email,
             },

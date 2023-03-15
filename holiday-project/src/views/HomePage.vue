@@ -6,18 +6,17 @@
         class="text-gray-800 text-center font-bold text-3xl md:text-5xl"
         data-test="title"
       >
-        Hello, welcome to My Holiday Page
+        {{ t("welcome.title_lbl") }}
       </h1>
       <span class="text-gray-800 text-sm text-center block">
-        The main object of this web site is to create a Holiday an be able to store the informations of this Holiday. And there are some functionalities
-        which allows you to them or recreate them
+        {{ t("welcome.description_lbl") }}
       </span>
     </div>
     <div class="flex flex-col md:flex-row md:gap-x-8 md:mx-auto md:w-6/12">
       <div class="relative my-2 md:w-6/12">
           <MainButton
               @click="shouldShowCreationModal = !shouldShowCreationModal"
-              label="Create new holiday"
+              :label="t('welcome.label_create')"
               class="bg-blue-100 w-full rounded-md h-14 flex flex-row text-white"
               data-test="create-holiday"
           />
@@ -28,10 +27,10 @@
       </div>
       <div class="relative my-2 md:w-6/12">
         <MainButton
-          label="Holiday list"
-          class="bg-white-100 h-14 text-blue-100 rounded-md font-semibold flex flex-col justify-center text-base"
-          @click="getRandomPage"
-          data-test="list-holiday"
+            :label="t('welcome.label_list')"
+            class="bg-white-100 h-14 text-blue-100 rounded-md font-semibold flex flex-col justify-center text-base"
+            @click="getRandomPage"
+            data-test="list-holiday"
         />
         <BlueList class="w-6 h-7 absolute top-3 left-3" fill="blue" />
       </div>
@@ -53,10 +52,16 @@ import MainButton from "../components/MainButton.vue";
 import BlueList from "../assets/Holidays-Icons/BlueList.vue";
 import WelcomeImage from "../assets/holidays-foto/WelcomeImage.vue";
 import CreateHolidayForm from "./CreateHolidayForm.vue";
+import {useI18n} from "vue-i18n";
 
 const router = useRouter();
 const shouldShowCreationModal = ref<boolean>(false);
 const getRandomPage = async (): Promise<void> => {
   await router.push("/holiday-list");
 };
+
+const { t } = useI18n({
+  useScope: "global",
+  inheritLocale: true,
+});
 </script>

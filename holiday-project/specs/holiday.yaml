@@ -68,6 +68,9 @@ components:
         id:
           type: integer
           description: identifier the holiday
+        type:
+          type: string
+          description: type of the holiday
         startingDate:
           type: string
           format: date

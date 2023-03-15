@@ -1,4 +1,9 @@
 /// <reference types="cypress" />
+
+import {useCypressCommands} from "../../utils/common";
+
+const { interceptLoginError } = useCypressCommands();
+
 describe("Sign up", () => {
     beforeEach(() => {
         cy.visit("/");
@@ -30,15 +35,7 @@ describe("Sign up", () => {
     });
 
     it("should fail when the user already exist", () => {
-        cy.intercept({
-            method: "POST",
-            url: "/authentication/auth/signup",
-            },
-            {
-                statusCode: 403,
-                body: "P2002"
-            }
-        ).as("invalid-user");
+        interceptLoginError("/authentication/auth/signup", "P2002")
 
         fillUserForm({
             email: "sontia@gmail.com",
@@ -50,6 +47,7 @@ describe("Sign up", () => {
         });
 
         cy.get("[data-test='submit-button']").click();
+        cy.wait("@invalid-user");
         cy.get("[data-test='sign-up-error']").should("have.text", "It seems as if a user already have this email. If you are the one please Login")
     });
 

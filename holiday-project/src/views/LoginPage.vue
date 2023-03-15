@@ -3,14 +3,14 @@
     class="h-screen bg-gray-100 md:bg-white flex flex-col md:justify-center md:py-16 md:h-fit"
   >
     <div
-      class="text-base md:text-xl font-bold flex justify-center border border-gray-100 my-8 py-2 leading-tight text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white md:w-5/12"
+      class="text-base md:text-xl font-bold flex border border-gray-100 mb-8 py-2 leading-tight text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white w-[550px]"
       v-if="errorStore.email"
       data-test="login-error-msg"
     >
-      {{ t("login.auth_lbl") }}
+      <span class="w-10/12">{{ t("login.auth_lbl") }}</span>
       <span
         @click="goToSignUpPage"
-        class="pl-1 text-blue-200 underline text-sm md:text-lg"
+        class="pl-1 text-blue-200 underline text-sm md:text-lg w-2/12"
       >
       {{ t("sign-up.title_lbl") }}
       </span>
