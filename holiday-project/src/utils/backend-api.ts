@@ -5,9 +5,9 @@ import {OpenAPI as holidayOpenApi} from "../services/holiday";
 export const prepareApis = (): void => {
 
     userOpenApi.BASE =
-        import.meta.env.VITE_REST_API_BASE_URL + "/api/users";
-    authenticationOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/api/auth";
-    holidayOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/api/holidays";
+        import.meta.env.VITE_REST_API_BASE_URL + "/users";
+    authenticationOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/auth";
+    holidayOpenApi.BASE = import.meta.env.VITE_REST_API_BASE_URL + "/holidays";
 
     userOpenApi.TOKEN = getPublicAccessToken;
     authenticationOpenApi.TOKEN = getPublicAccessToken;
