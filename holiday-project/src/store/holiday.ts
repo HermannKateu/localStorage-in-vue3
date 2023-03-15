@@ -8,7 +8,6 @@ export const useHolidayStore = defineStore({
     id: "holiday",
     actions: {
         async getAllHolidays(): Promise<Holiday[]>{
-            useSessionStore().isLoading = true;
             let holidays: HolidayDTO[] = [];
             try {
                 holidays = await HolidayService.getAllHolidays({
@@ -17,7 +16,6 @@ export const useHolidayStore = defineStore({
             }catch (error) {
                 console.log(error)
             }
-            useSessionStore().isLoading = false;
             return holidays.map(holiday => new Holiday(holiday));
         }
     }

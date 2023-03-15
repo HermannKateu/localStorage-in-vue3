@@ -9,7 +9,6 @@ export const useAuthenticationStore = defineStore({
     id: "authentication",
     actions: {
         async createUser(user: User): Promise<string>{
-            useSessionStore().isLoading = true;
             let userId: string = ""
             try {
                 userId = await AuthService.createUser({
@@ -30,7 +29,6 @@ export const useAuthenticationStore = defineStore({
                     }
                 }
             }
-            useSessionStore().isLoading = false;
             return userId;
         },
 
@@ -57,7 +55,6 @@ export const useAuthenticationStore = defineStore({
                     }
                 }
             }
-            useSessionStore().isLoading = false;
             return userId;
         }
     }

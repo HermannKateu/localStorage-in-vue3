@@ -20,7 +20,6 @@ export const useUserStore = defineStore({
     },
 
     async updateUser(user: User): Promise<void> {
-      useSessionStore().isLoading = true;
       try {
         await UserService.updateUser({
           id: user.id,
@@ -34,7 +33,6 @@ export const useUserStore = defineStore({
       }catch (error) {
         console.log(error)
       }
-      useSessionStore().isLoading = false;
     },
   }
 });

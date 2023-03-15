@@ -10,7 +10,6 @@
       <UserDetails v-if="showShowDetails" @close="showShowDetails = false"/>
       <UserUpdate v-show="showShowUpdate" @close="showShowUpdate = false"/>
     </section>
-    <LoaderWraper v-if="useSessionStore().isLoading" />
   </div>
 </template>
 
@@ -20,8 +19,6 @@ import HeaderSection from "../src/components/HeaderSection.vue";
 import {useRoute} from "vue-router";
 import UserDetails from "./components/UserDetails.vue";
 import UserUpdate from "./components/UserUpdate.vue";
-import LoaderWraper from "./components/LoaderWraper.vue";
-import {useSessionStore} from "./store/session";
 
 const showShowDetails = ref<boolean>(false);
 const showShowUpdate = ref<boolean>(false);
