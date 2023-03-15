@@ -12,7 +12,7 @@
       </span>
     </div>
     <div class="text-blue-100 font-bold text-xl" data-test="date">
-      {{ `${dayjs(holiday.starting).format("MMMM, D")} - ${dayjs(holiday.ending).format("MMMM, D")}` }}
+      {{ `${dayjs(holiday.startingDate).format("MMMM, D")} - ${dayjs(holiday.endingDate).format("MMMM, D")}` }}
     </div>
     <span class="text-gray-700 text-sm leading-tight flex w-full break-all" data-test="description">
       {{ holiday.description }}
