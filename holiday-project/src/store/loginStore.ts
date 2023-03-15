@@ -1,7 +1,6 @@
 import { ref } from "vue";
 import {HolidayInfo} from "../utils/type";
 
-export const isLogin = ref(false);
 export const FORM_DATA: string = "form";
 
 export type User = {

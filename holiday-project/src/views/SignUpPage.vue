@@ -70,10 +70,10 @@
           >Male
           <input
               data-test="male"
-            type="radio"
-            class="w-4 h-4"
-            :value="t('gender.male_lbl')"
-            v-model="singUpData.gender"
+              type="radio"
+              class="w-4 h-4"
+              :value="t('gender.male_lbl')"
+              v-model="singUpData.gender"
           />
         </label>
         <label
@@ -91,7 +91,8 @@
       </div>
       <MainButton
         :label="t('label.create_btn')"
-        class="text-base text-white bg-blue-800 w-full h-12 font-bold rounded-md shadow-lg shadow-blue-400 flex hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-14 md:text-xl"
+        class="text-base text-white bg-blue-800 w-full h-12 font-bold rounded-md shadow-lg shadow-blue-400 flex
+         hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-14 md:text-xl"
         data-test="submit-button"
       />
     </form>

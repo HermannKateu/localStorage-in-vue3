@@ -39,13 +39,13 @@ export class UserService {
      * @throws ApiError
      */
     public static updateUser({
-        email,
+        id,
         requestBody,
     }: {
         /**
-         * the user's email to update
+         * the user's id to update
          */
-        email: string,
+        id: number,
         /**
          * User object that need to be edit
          */
@@ -53,9 +53,9 @@ export class UserService {
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/users/user',
+            url: '/users/{id}',
             path: {
-                'email': email,
+                'id': id,
             },
             body: requestBody,
             mediaType: 'application/json',

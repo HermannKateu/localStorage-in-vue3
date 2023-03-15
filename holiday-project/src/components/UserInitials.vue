@@ -1,6 +1,6 @@
 <template>
   <div class="bg-blue-600 p-1 rounded-full w-10 h-10 cursor-pointer flex justify-center items-center text-white font-semibold">
-      {{ withdrawInitialFromA(user.firstname)+ "" + withdrawInitialFromA(user.lastName) }}
+      {{ withdrawInitialFromA(user.firstName)+ "" + withdrawInitialFromA(user.lastName) }}
   </div>
 </template>
 
