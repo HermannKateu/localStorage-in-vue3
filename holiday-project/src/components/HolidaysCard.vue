@@ -5,7 +5,7 @@
   >
     <div class="flex flex-row justify-between text-gray text-sm font-medium">
       <span data-test="starting-date">
-        Created {{ daysSinceCreation }} day(s) ago
+        {{ dayjs(holiday.creationDate).format("MMMM, D") }}
       </span>
       <span data-test="time">
         {{ holiday.creationDate }}
@@ -20,26 +20,22 @@
     <button
       class="text-blue-100 text-sm font-semibold bg-gray-600 rounded-xl py-1 w-20"
       type="submit"
-      data-test="state"
+      data-test="type"
     >
-      {{ holiday.type.key }}
+      {{ holiday.type }}
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from "vue";
-import {HolidayInfo} from "../utils/type";
 import dayjs from "dayjs";
-import {computed, ref} from "vue";
+import {Holiday as HolidayInfo} from "../domain/holiday";
 
-const days = ref<number>(1);
 const props = defineProps({
   holiday: {
     type: Object as PropType<HolidayInfo>,
     default: () => ({}),
   },
 });
-
-const daysSinceCreation = computed<number>(() => props.holiday?.creationDate === `${dayjs().hour()}h${dayjs().minute()}` ? days.value++ : 1);
 </script>

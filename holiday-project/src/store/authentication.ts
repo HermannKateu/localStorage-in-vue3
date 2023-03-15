@@ -20,6 +20,7 @@ export const useAuthenticationStore = defineStore({
                     }
                 })
             }catch (error) {
+                // @ts-ignore
                 switch (error.body) {
                     case "P2002": {
                         useErrorStore().error.email = ERROR.P2002;
@@ -31,7 +32,7 @@ export const useAuthenticationStore = defineStore({
         },
 
         async connectUser(user: User): Promise<string>{
-            let userId: string = ""
+            let userId: string = "";
             try {
                 userId = await AuthService.connectUser({
                     requestBody: {
@@ -40,9 +41,14 @@ export const useAuthenticationStore = defineStore({
                     }
                 })
             }catch (error) {
+                // @ts-ignore
                 switch (error.body) {
                     case "P2005": {
-                        useErrorStore().error.password = ERROR.P2002;
+                        useErrorStore().error.email = ERROR.P2005;
+                        break;
+                    }
+                    case "P2006": {
+                        useErrorStore().error.password = ERROR.P2006;
                         break;
                     }
                 }

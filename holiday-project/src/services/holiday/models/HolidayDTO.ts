@@ -8,6 +8,10 @@ export type HolidayDTO = {
      */
     id?: number;
     /**
+     * type of the holiday
+     */
+    type?: string;
+    /**
      * the startingDate of the holiday
      */
     startingDate?: string;
