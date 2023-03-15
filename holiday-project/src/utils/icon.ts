@@ -11,26 +11,26 @@ export type Menu = {
 export const icons: Menu[] = [
     {
         icon: Contact,
-        value: "Contact",
-        list: ["My MTN number 672549898", "My Orange number 659597785"]
+        value: "user.value_1",
+        list: ["list.1", "list.2"]
     },
     {
         icon: Settings,
-        value: "Settings",
-        list: ["Update your account","Delete your account"]
+        value: "user.value_2",
+        list: ["list_2.1","list_2.2"]
     },
     {
         icon: Documentation,
-        value: "Documentation",
+        value: "user.value_3",
         list: [
-            "This site allows you to create some holidays",
-            "Enables you to see their details",
-            "Delete them if you want",
+            "list_3.1",
+            "list_3.2",
+            "list_3.3",
         ]
     },
     {
         icon: Email,
-        value: "Email",
-        list: ["Creator email is sontiahermann3@gmail.com"]
+        value: "user.value_4",
+        list: ["list_4.1"]
     },
 ]

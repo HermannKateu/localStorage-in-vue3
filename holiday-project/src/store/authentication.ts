@@ -3,11 +3,13 @@ import {User} from "../domain/user";
 import { AuthService } from "../services/authentication";
 import {useErrorStore} from "./error";
 import {ERROR} from "../utils/enum";
+import {useSessionStore} from "./session";
 
 export const useAuthenticationStore = defineStore({
     id: "authentication",
     actions: {
         async createUser(user: User): Promise<string>{
+            useSessionStore().isLoading = true;
             let userId: string = ""
             try {
                 userId = await AuthService.createUser({
@@ -28,10 +30,12 @@ export const useAuthenticationStore = defineStore({
                     }
                 }
             }
+            useSessionStore().isLoading = false;
             return userId;
         },
 
         async connectUser(user: User): Promise<string>{
+            useSessionStore().isLoading = true;
             let userId: string = "";
             try {
                 userId = await AuthService.connectUser({
@@ -53,6 +57,7 @@ export const useAuthenticationStore = defineStore({
                     }
                 }
             }
+            useSessionStore().isLoading = false;
             return userId;
         }
     }

@@ -1,5 +1,4 @@
 import {useCypressCommands} from "../../utils/common";
-import {FIELDS_TO_EXTRACT} from "../../../src/utils/enum";
 
 const { login, loginInterception, userDetails } = useCypressCommands();
 
@@ -12,6 +11,11 @@ describe("User details", () => {
         cy.wait("@connect-user");
     })
     it("should be successful when the user exists", () => {
+        cy.get("[data-test='user-initials']").click();
+        cy.get("[data-test='user-details']").click();
+        cy.wait("@user-details")
 
+        cy.get("[data-test='user-name']").should("have.text", "HERMANN SONTIA")
+        cy.get("[data-test='user-gender']").should("have.text", " Male")
     });
-})
+});

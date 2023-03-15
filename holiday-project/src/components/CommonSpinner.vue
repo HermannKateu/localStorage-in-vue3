@@ -12,7 +12,7 @@
 }
 
 .loader div:after {
-  @apply block absolute top-[22px] left-[37px] w-[5.24px] h-[20.95px] rounded-[20px] bg-gray-400;
+  @apply block absolute top-[22px] left-[37px] w-[5.24px] h-[20.95px] rounded-[20px] bg-gray-300;
 
   content: "";
 }

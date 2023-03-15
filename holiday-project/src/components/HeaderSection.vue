@@ -7,7 +7,7 @@
       <BreadCrumb @closeModal="shouldLogout = false" />
       <UserInitials
           v-if="$route.name !== 'login' && $route.name !== 'sign-up'"
-          data-test="contact"
+          data-test="user-initials"
           @click="shouldLogout = !shouldLogout"
       />
       <transition>
@@ -15,8 +15,18 @@
             v-if="shouldLogout"
             class="w-11/12 divide-y divide-sky-300 md:w-[350px] rounded-lg border border-sky-300 p-4 bg-white absolute right-6 top-16"
         >
-          <div class="cursor-pointer py-2 flex gap-x-2 items-center" @click="showUserDetails"> {{ t("header.details_lbl") }}<DetailsIcon /></div>
-          <div class="cursor-pointer py-2 flex gap-x-2 items-center" @click="showUserUpdate">{{ t("header.update_lbl") }}
+          <div
+              data-test="user-details"
+              class="cursor-pointer py-2 flex gap-x-2 items-center"
+              @click="showUserDetails"> {{ t("header.details_lbl") }}
+            <DetailsIcon />
+          </div>
+          <div
+              data-test="user-update"
+              class="cursor-pointer py-2 flex gap-x-2 items-center"
+              @click="showUserUpdate"
+          >
+            {{ t("header.update_lbl") }}
             <Update class="w-[20px] h-[20px]" />
           </div>
           <div

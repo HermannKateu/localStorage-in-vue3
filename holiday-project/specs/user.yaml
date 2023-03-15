@@ -28,6 +28,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDTO'
+
+  /users/{id}:
     put:
         tags:
           - User
@@ -35,12 +37,12 @@ paths:
         description: Update an existing User
         operationId: updateUser
         parameters:
-          - name: email
-            description: the user's email to update
+          - name: id
+            description: the user's id to update
             in: path
             required: true
             schema:
-              type: string
+              type: integer
               format: uuid
         requestBody:
           description: User object that need to be edit

@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import {useCypressCommands} from "../../utils/common";
 import {FIELDS_TO_EXTRACT} from "../../../src/utils/enum";
 

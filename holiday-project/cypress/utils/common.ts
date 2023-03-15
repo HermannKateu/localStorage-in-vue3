@@ -36,6 +36,7 @@ export function useCypressCommands() {
             {
                 statusCode: 200,
                 body: {
+                    id: 2,
                     firstName: "Hermann",
                     lastName: "Sontia",
                     gender: "Male",

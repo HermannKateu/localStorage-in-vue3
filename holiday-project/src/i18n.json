@@ -1,5 +1,7 @@
 {
   "en": {
+    "create_lbl": "Create Account",
+    "close_lbl": "Close:",
     "login_lbl": "Login",
     "login": {
       "auth_lbl": "Sorry but it seems you do not appear to have an account please",
@@ -13,9 +15,6 @@
     },
     "gender": {
       "male_lbl": "Male",
-      "welcome": {
-        "title_lbl": ""
-      },
       "female_lbl": "Female"
     },
     "label":{
@@ -41,9 +40,33 @@
       "description_lbl": "The main objective of this web site is to create a Holiday an be able to store the informations of this Holiday. And there are some functionalities which allows you to them or recreate them",
       "label_create": "Create new holiday",
       "label_list": "Holiday list"
+    },
+    "user": {
+      "value_1": "Contact",
+      "value_2": "Settings",
+      "value_3": "Documentation",
+      "value_4": "Email"
+    },
+    "list": {
+      "1": "My MTN number 672549898",
+      "2": "My Orange number 659597785"
+    },
+    "list_2": {
+      "1": "Update your account",
+      "2": "Delete your account"
+    },
+    "list_3": {
+      "1": "This site allows you to create some holidays",
+      "2": "Enables you to see their details",
+      "3": "Delete them if you want"
+    },
+    "list_4": {
+      "1": "Creator email is sontiahermann3@gmail.com"
     }
   },
   "fr": {
+    "close_lbl": "Fermer:",
+    "create_lbl": "Créer un compte",
     "login_lbl": "Connexion",
     "login": {
       "remember_lbl": "Souviens-toi de moi !",
@@ -82,6 +105,28 @@
       "description_lbl": "L'objetive principal de ce site web est de créer un séjour et de pouvoir stocker les informations de ce séjour. Et il y a quelques fonctionnalités qui vous permettent de les ou de les recréer",
       "label_create": "Créer de nouvelles vacances",
       "label_list": "Liste des Congés"
+    },
+    "user": {
+      "value_1": "Contact",
+      "value_2": "Paramètres",
+      "value_3": "Documentation",
+      "value_4": "Email"
+    },
+    "list": {
+      "1": "Mon numéro MTN 672549898",
+      "2": "Mon numéro Orange 659597785"
+    },
+    "list_2": {
+      "1": "Mettre à jour votre compte",
+      "2": "Supprimer votre compte"
+    },
+    "list_3": {
+      "1": "Ce site vous permet de créer des vacances",
+      "2": "Vous permet de voir leurs détails",
+      "3": "Supprimez-les si vous le souhaitez"
+    },
+    "list_4": {
+      "1": "L'E-mail du créateur est sontiahermann3@gmail.com"
     }
   }
 }
