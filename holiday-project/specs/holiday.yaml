@@ -7,7 +7,7 @@ servers:
   - url: 'https'
   - url: 'http'
 paths:
-  /holidays:
+  /:
     get:
       tags:
         - Holiday
@@ -30,7 +30,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/HolidayDTO'
-  /holidays/{id}:
+  /{id}:
     get:
       tags:
         - Holiday

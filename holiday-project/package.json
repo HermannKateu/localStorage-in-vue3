@@ -9,7 +9,7 @@
     "test:unit": "jest",
     "preview": "vite preview",
     "openapi-generate-authentication": "openapi --useOptions --client axios --input ./specs/authentication.yaml --output ./src/services/authentication",
-    "openapi-generate-user": "openapi --useOptions --client axios --input specs/uum.yaml --output ./src/services/user",
+    "openapi-generate-user": "openapi --useOptions --client axios --input specs/user.yaml --output ./src/services/user",
     "openapi-generate-holiday": "openapi --useOptions --client axios --input ./specs/holiday.yaml --output ./src/services/holiday",
     "openapi-generate": "npm run openapi-generate-authentication && npm run openapi-generate-holiday && npm run openapi-generate-user"
   },

@@ -25,7 +25,7 @@ export class UserService {
     }): CancelablePromise<UserDTO> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/users/user',
+            url: '/user',
             query: {
                 'fieldsToExtractCode': fieldsToExtractCode,
             },
@@ -53,7 +53,7 @@ export class UserService {
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/users/{id}',
+            url: '/{id}',
             path: {
                 'id': id,
             },

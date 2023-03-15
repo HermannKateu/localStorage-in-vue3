@@ -25,7 +25,7 @@ export class HolidayService {
     }): CancelablePromise<Array<HolidayDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/holidays',
+            url: '/',
             query: {
                 'fieldsToExtractCode': fieldsToExtractCode,
             },
@@ -53,7 +53,7 @@ export class HolidayService {
     }): CancelablePromise<HolidayDTO> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/holidays/{id}',
+            url: '/{id}',
             path: {
                 'id': id,
             },
