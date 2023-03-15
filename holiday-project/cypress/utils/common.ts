@@ -22,7 +22,7 @@ export function useCypressCommands() {
     const loginInterception = (): void => {
         cy.intercept({
             method: "POST",
-            url: "/authentication/auth/signin"
+            url: "/auth/signin"
         }, {
             statusCode: 201,
         }).as("connect-user")
@@ -31,7 +31,7 @@ export function useCypressCommands() {
     const userDetails = (): void => {
         cy.intercept({
             method: "GET",
-            url: `/uum/users/user?fieldsToExtractCode=${FIELDS_TO_EXTRACT.CODE_1}`
+            url: `/users/user?fieldsToExtractCode=${FIELDS_TO_EXTRACT.CODE_1}`
         },
             {
                 statusCode: 200,
@@ -50,7 +50,7 @@ export function useCypressCommands() {
     const holidayList = (): void => {
         cy.intercept({
             method: "GET",
-            url: `/holiday/holidays?fieldsToExtractCode=${FIELDS_TO_EXTRACT.CODE_2}`
+            url: `/holidays?fieldsToExtractCode=${FIELDS_TO_EXTRACT.CODE_2}`
         },
         {
             statusCode: 200,
