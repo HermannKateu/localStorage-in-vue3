@@ -1,5 +1,6 @@
 <template>
   <div>
+    <LoaderWraper v-if="useSessionStore().isLoading"/>
     <HeaderSection
         class="sticky top-0 z-50"
         @show-details="showUpdateModal"
@@ -19,6 +20,8 @@ import HeaderSection from "../src/components/HeaderSection.vue";
 import {useRoute} from "vue-router";
 import UserDetails from "./components/UserDetails.vue";
 import UserUpdate from "./components/UserUpdate.vue";
+import LoaderWraper from "./components/LoaderWraper.vue";
+import { useSessionStore } from "./store/session";
 
 const showShowDetails = ref<boolean>(false);
 const showShowUpdate = ref<boolean>(false);

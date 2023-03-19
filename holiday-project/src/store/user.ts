@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import {User} from "../domain/user";
 import {UserDTO, UserService} from "../services/user";
+import { useSessionStore } from "./session";
 
 export const useUserStore = defineStore({
   id: "user",
@@ -17,6 +18,7 @@ export const useUserStore = defineStore({
 
     async updateUser(user: User): Promise<void> {
       try {
+        useSessionStore().isLoading = true;
         await UserService.updateUser({
           id: user.id,
           requestBody: {
@@ -29,6 +31,7 @@ export const useUserStore = defineStore({
       }catch (error) {
         console.log(error)
       }
+      useSessionStore().isLoading = false;
     },
   }
 });
