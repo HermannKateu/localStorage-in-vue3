@@ -26,10 +26,10 @@
     >
         <HolidaysCard
             v-for="(holiday, index) in holidays"
-            :holiday="holiday"
             class="max-w-[385px] grow cursor-pointer hover:shadow-sm hover:transition hover:duration-300"
             data-test="holiday-card"
             :key="index"
+            :holiday="holiday"
             @click="goTo(index)"
         />
     </div>
@@ -60,6 +60,6 @@ onBeforeMount(async () => {
 });
 
 const goTo = async (id: number): Promise<void> => {
-  await router.push(`/holiday-item/${id}`)
+  await router.push(`/holidays/${id}`)
 }
 </script>

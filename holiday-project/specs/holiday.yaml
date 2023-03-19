@@ -36,7 +36,7 @@ paths:
           in: path
           required: true
           schema:
-            type: string
+            type: integer
             format: uuid
       responses:
         200:
@@ -45,6 +45,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HolidayDTO'
+    post:
+      tags:
+        - Holiday
+      summary: create an a holiday
+      description: create an existing User
+      operationId: createHoliday
+      parameters:
+      requestBody:
+        description: Holiday object that need to be edit
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HolidayDTO'
+      responses:
+        204:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+    delete:
+      tags:
+        - Holiday
+      summary: delete an existing User
+      description: delete an existing User
+      operationId: deleteHoliday
+      parameters:
+        - name: id
+          description: the holiday's id to delete
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: uuid
+      responses:
+        204:
+          description: Successful operation        
 components:
   schemas:
     HolidayDTO:

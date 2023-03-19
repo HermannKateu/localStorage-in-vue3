@@ -1,7 +1,6 @@
 <template>
   <div
     class="bg-gray-400 p-5 border border-gray-200 rounded-lg font-WorkSans w-full flex flex-col gap-y-4 shadow-[#D1E4FA] shadow-lg"
-
   >
     <div class="flex flex-row justify-between text-gray text-sm font-medium">
       <span data-test="starting-date">
@@ -32,7 +31,7 @@ import type { PropType } from "vue";
 import dayjs from "dayjs";
 import {Holiday as HolidayInfo} from "../domain/holiday";
 
-const props = defineProps({
+defineProps({
   holiday: {
     type: Object as PropType<HolidayInfo>,
     default: () => ({}),

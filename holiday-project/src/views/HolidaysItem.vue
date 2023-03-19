@@ -23,7 +23,7 @@
         <div class="font-medium md:w-6/12">
           <span class="text-gray md:text-lg">Type</span>
           <h3 class="text-black text-base md:text-xl">
-            {{ holidayDetails.type.key }}
+            {{ holidayDetails }}
           </h3>
         </div>
         <div class="font-medium grow flex flex-col gap-y-2 md:w-6/12">

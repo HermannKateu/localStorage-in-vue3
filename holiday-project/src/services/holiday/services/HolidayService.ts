@@ -34,10 +34,55 @@ export class HolidayService {
         /**
          * the holiday's id to get
          */
-        id: string,
+        id: number,
     }): CancelablePromise<HolidayDTO> {
         return __request(OpenAPI, {
             method: 'GET',
+            url: '/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
+
+    /**
+     * create an a holiday
+     * create an existing User
+     * @returns void
+     * @throws ApiError
+     */
+    public static createHoliday({
+        requestBody,
+    }: {
+        /**
+         * Holiday object that need to be edit
+         */
+        requestBody: HolidayDTO,
+    }): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/{id}',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * delete an existing User
+     * delete an existing User
+     * @returns void
+     * @throws ApiError
+     */
+    public static deleteHoliday({
+        id,
+    }: {
+        /**
+         * the holiday's id to delete
+         */
+        id: number,
+    }): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
             url: '/{id}',
             path: {
                 'id': id,

@@ -78,13 +78,13 @@ import {reactive, computed, ref, watch} from "vue";
 import SelectOption from "../components/SelectOption.vue";
 import {holidayOptions} from "../utils/data";
 import dayjs from "dayjs";
-import {HolidayInfo, KeyWord} from "../utils/type";
 import useVuelidate from "@vuelidate/core";
 import {helpers, required, requiredIf} from "@vuelidate/validators";
-import {holidays} from "../store/loginStore";
 import SuccessIcon from "../assets/Holidays-Icons/SuccessIcon.vue";
 import {useRouter} from "vue-router";
 import ModalWrapper from "../components/ModalWrapper.vue";
+import { useHolidayStore } from "src/store/holiday";
+import { Holiday } from "src/domain/holiday";
 
 const router = useRouter();
 defineProps({
@@ -97,7 +97,7 @@ const emit = defineEmits(["closeModal"]);
 
 type NewHolidayType = {
   starting: string;
-  type: KeyWord;
+  type: string;
   ending: string;
   numberOfDays: string;
   creationDate?: string;
@@ -108,7 +108,7 @@ type NewHolidayType = {
 
 const holidayInfo = reactive<NewHolidayType>({
   starting: "",
-  type: {} as KeyWord,
+  type: "",
   ending: "",
   numberOfDays: "",
   returnDate: "",
@@ -146,31 +146,23 @@ const rules = computed(() => {
 
 const v$ = useVuelidate(rules, holidayInfo);
 const submitForm = async (): Promise<void> => {
+  console.log("test", holidayInfo.starting)
   const isFromValid = await v$.value.$validate();
   if (isFromValid && !hasError.value){
-    holidays.value.push({
+    await useHolidayStore().createHoliday(new Holiday({
       type: holidayInfo.type,
-      starting: holidayInfo.starting,
-      ending: holidayInfo.ending,
+      startingDate: holidayInfo.starting,
+      endingDate: holidayInfo.ending,
       description: holidayInfo.description,
-      numberOfDays: numberOfDays.value,
+      numberOfDays: Number(numberOfDays.value),
       returnDate: returnDate.value,
-      creationDate: `${dayjs().hour()}h${dayjs().minute()}`,
-    } as HolidayInfo);
-
-    localStorage.setItem("allHolidays", JSON.stringify(holidays.value));
+      createdAt: new Date().toISOString(),
+    }))
     isHolidayCreated.value = true;
 
     setTimeout(() => {
       isHolidayCreated.value = false;
-      Object.assign(holidayInfo, {
-        type: {},
-        starting: "",
-        ending: "",
-        description: "",
-        numberOfDays: "",
-        returnDate: ""
-      });
+      Object.assign(holidayInfo, {});
       v$.value.$reset();
       emit("closeModal");
       router.push("/holiday-list");

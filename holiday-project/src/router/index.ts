@@ -35,7 +35,7 @@ export const router = createRouter({
           component: () => import("../views/CreateHolidayForm.vue"),
         },
         {
-          path: "/holiday-item/:id",
+          path: "/holidays/:id",
           name: "holiday-details",
           component: () => import("../views/HolidaysItem.vue"),
         },
