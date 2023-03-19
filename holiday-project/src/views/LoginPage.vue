@@ -142,8 +142,10 @@ const loginUser = async (): Promise<void> => {
       }
       return;
     }
-    localStorage.setItem("token", JSON.stringify(token))
-    await router.push("/home");
+    if(token){
+      localStorage.setItem("token", JSON.stringify(token))
+      await router.push("/home");
+    }
   }
 };
 

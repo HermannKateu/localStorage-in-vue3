@@ -184,8 +184,10 @@ const submitForm = async (): Promise<void> => {
         Object.assign($externalResults, { email: t(errorStore.value.email) });
       return;
     }
-    localStorage.setItem("token", JSON.stringify(token))
-    await router.push("/home");
+    if(token){
+      localStorage.setItem("token", JSON.stringify(token))
+      await router.push("/home");
+    }
   }
 };
 

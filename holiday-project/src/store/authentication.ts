@@ -55,6 +55,7 @@ export const useAuthenticationStore = defineStore({
                     }
                 }
             }
+            console.log(userId)
             return userId;
         }
     }
