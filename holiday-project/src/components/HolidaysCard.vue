@@ -3,11 +3,14 @@
     class="bg-gray-400 p-5 border border-gray-200 rounded-lg font-WorkSans w-full flex flex-col gap-y-4 shadow-[#D1E4FA] shadow-lg"
   >
     <div class="flex flex-row justify-between text-gray text-sm font-medium">
-      <span data-test="starting-date">
-        {{ dayjs(holiday.creationDate).format("MMMM, D") }}
+      <span v-if="!creationDays">
+        Created now
+      </span>
+      <span data-test="starting-date" v-else>
+        {{ `created ${creationDays} days ago` }}
       </span>
       <span data-test="time">
-        {{ dayjs(holiday.creationDate).format("LT") }}
+        {{ dayjs(holiday.creationDate).format("h:mm A") }}
       </span>
     </div>
     <div class="text-blue-100 font-bold text-xl" data-test="date">
@@ -27,14 +30,23 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from "vue";
+import { computed, PropType, ref } from "vue";
 import dayjs from "dayjs";
 import type { Holiday } from "../domain/holiday";
 
-defineProps({
+const props = defineProps({
   holiday: {
     type: Object as PropType<Holiday>,
     required: true,
   },
 });
+
+const counter = ref<number>(0);
+
+const creationDays = computed(() => {
+  if(dayjs(props.holiday.creationDate).format("h:mm A") === dayjs().format("h:mm A")){
+    return counter.value++;
+  }
+  return counter.value;
+})
 </script>

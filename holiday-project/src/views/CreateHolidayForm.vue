@@ -85,6 +85,7 @@ import {useRouter} from "vue-router";
 import ModalWrapper from "../components/ModalWrapper.vue";
 import { useHolidayStore } from "../store/holiday";
 import { Holiday } from "../domain/holiday";
+import { KeyWord } from "src/utils/type";
 
 const router = useRouter();
 defineProps({
@@ -97,7 +98,7 @@ const emit = defineEmits(["closeModal"]);
 
 type NewHolidayType = {
   starting: string;
-  type: string;
+  type: KeyWord;
   ending: string;
   numberOfDays: string;
   creationDate?: string;
@@ -108,7 +109,7 @@ type NewHolidayType = {
 
 const holidayInfo = reactive<NewHolidayType>({
   starting: "",
-  type: "",
+  type: {} as KeyWord,
   ending: "",
   numberOfDays: "",
   returnDate: "",
@@ -150,7 +151,7 @@ const submitForm = async (): Promise<void> => {
   const isFromValid = await v$.value.$validate();
   if (isFromValid && !hasError.value){
     await useHolidayStore().createHoliday(new Holiday({
-      type: holidayInfo.type,
+      type: holidayInfo.type.key,
       startingDate: holidayInfo.starting,
       endingDate: holidayInfo.ending,
       description: holidayInfo.description,

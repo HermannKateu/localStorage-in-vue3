@@ -81,7 +81,7 @@ const shouldDelete = ref<boolean>(false);
 const  holiday = ref<Holiday>({} as Holiday);
 
 onBeforeMount(async () => {
-  holiday.value = await useHolidayStore().getHolidayById(Number(route.params.id))
+  holiday.value = await useHolidayStore().getHolidayById(Number(route.params.id));
 });
 
 watch(() => shouldDelete.value, async (newValue) => {

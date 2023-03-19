@@ -46,28 +46,6 @@ export class HolidayService {
     }
 
     /**
-     * create an a holiday
-     * create an existing User
-     * @returns void
-     * @throws ApiError
-     */
-    public static createHoliday({
-        requestBody,
-    }: {
-        /**
-         * Holiday object that need to be edit
-         */
-        requestBody: HolidayDTO,
-    }): CancelablePromise<void> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/{id}',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
      * delete an existing User
      * delete an existing User
      * @returns void
@@ -87,6 +65,28 @@ export class HolidayService {
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * create an a holiday
+     * create an existing User
+     * @returns void
+     * @throws ApiError
+     */
+    public static createHoliday({
+        requestBody,
+    }: {
+        /**
+         * Holiday object that need to be edit
+         */
+        requestBody: HolidayDTO,
+    }): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/holiday',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

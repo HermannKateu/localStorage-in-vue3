@@ -40,13 +40,15 @@
 import HolidaysCard from "../components/HolidaysCard.vue";
 import MainButton from "../components/MainButton.vue";
 import {onBeforeMount, ref} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import BlankWrapper from "../components/BlankWrapper.vue";
 import {useI18n} from "vue-i18n";
 import  { Holiday } from "../domain/holiday";
 import {useHolidayStore} from "../store/holiday";
 
 const router = useRouter();
+const route = useRoute();
+
 const holidays = ref<Array<Holiday>>([]);
 
 const { t } = useI18n({

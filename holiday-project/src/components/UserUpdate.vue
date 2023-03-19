@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import SideWrapper from "../components/SideWrapper.vue";
 import ArrowRight from "../assets/holidays-foto/ArrowRight.vue";
-import {computed, onBeforeMount, reactive, ref} from "vue";
+import {computed, onBeforeMount, reactive, ref, watchEffect} from "vue";
 import {email, helpers, minLength, required } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import { User } from "../domain/user";
@@ -68,13 +68,26 @@ const user = ref<User>(newNullUser());
 
 onBeforeMount(async () => {
   user.value = await useUserStore().getUser();
+});
 
-  updateData.firstName = user.value.firstName;
-  updateData.lastName = user.value.lastName;
-  updateData.password = user.value.password;
-  updateData.email = user.value.email;
-  updateData.id = user.value.id
-})
+const updateData = reactive<UserType>({
+  email: "",
+  password: "",
+  firstName: "",
+  lastName: "",
+});
+
+
+watchEffect(() => {
+  if(user.value){
+    updateData.lastName = user.value.lastName;
+    updateData.firstName = user.value.firstName;
+    updateData.email = user.value.email;
+    updateData.password = user.value.password;
+    updateData.id = user.value.id
+  }
+});
+
 type UserType = {
   id?: number;
   email: string;
@@ -86,13 +99,6 @@ type UserType = {
 const { t } = useI18n({
   useScope: "global",
   inheritLocale: true,
-});
-
-const updateData = reactive<UserType>({
-  email: "",
-  password: "",
-  firstName: "",
-  lastName: "",
 });
 
 const passwordValidator = (value: string): boolean =>
@@ -131,7 +137,8 @@ const hasUserChange =
       password: user.value.password,
       firstName: user.value.firstName,
       lastName: user.value.lastName
-    }))
+    }));
+
 const submitForm = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid && hasUserChange.value){

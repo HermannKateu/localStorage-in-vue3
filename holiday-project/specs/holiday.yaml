@@ -45,6 +45,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HolidayDTO'
+    delete:
+      tags:
+        - Holiday
+      summary: delete an existing User
+      description: delete an existing User
+      operationId: deleteHoliday
+      parameters:
+        - name: id
+          description: the holiday's id to delete
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: uuid
+      responses:
+        204:
+          description: Successful operation      
+  /holiday:
     post:
       tags:
         - Holiday
@@ -66,24 +84,7 @@ paths:
             application/json:
               schema:
                 type: string
-                format: uuid
-    delete:
-      tags:
-        - Holiday
-      summary: delete an existing User
-      description: delete an existing User
-      operationId: deleteHoliday
-      parameters:
-        - name: id
-          description: the holiday's id to delete
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: uuid
-      responses:
-        204:
-          description: Successful operation        
+                format: uuid            
 components:
   schemas:
     HolidayDTO:

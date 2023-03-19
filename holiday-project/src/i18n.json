@@ -61,7 +61,7 @@
       "3": "Delete them if you want"
     },
     "list_4": {
-      "1": "Creator email is sontiahermann3@gmail.com"
+      "1": "Creator email is sontiahermann3{'@'}gmail.com"
     }
   },
   "fr": {
@@ -126,7 +126,7 @@
       "3": "Supprimez-les si vous le souhaitez"
     },
     "list_4": {
-      "1": "L'E-mail du créateur est sontiahermann3@gmail.com"
+      "1": "L'E-mail du créateur est sontiahermann3{'@'}gmail.com"
     }
   }
 }
