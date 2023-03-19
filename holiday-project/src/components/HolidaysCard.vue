@@ -7,7 +7,7 @@
         {{ dayjs(holiday.creationDate).format("MMMM, D") }}
       </span>
       <span data-test="time">
-        {{ holiday.creationDate }}
+        {{ dayjs(holiday.creationDate).format("LT") }}
       </span>
     </div>
     <div class="text-blue-100 font-bold text-xl" data-test="date">
@@ -29,12 +29,12 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import dayjs from "dayjs";
-import {Holiday as HolidayInfo} from "../domain/holiday";
+import type { Holiday } from "../domain/holiday";
 
 defineProps({
   holiday: {
-    type: Object as PropType<HolidayInfo>,
-    default: () => ({}),
+    type: Object as PropType<Holiday>,
+    required: true,
   },
 });
 </script>

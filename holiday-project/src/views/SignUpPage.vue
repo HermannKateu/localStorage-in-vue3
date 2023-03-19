@@ -17,8 +17,8 @@
       >
     </div>
     <form
-      class="px-4 w-full flex flex-col mt-8 mx-auto md:px-8 md:border md:py-5
-      md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px] gap-y-3"
+      class="px-4 w-full flex flex-col mx-auto md:px-8 md:border
+      md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[450px] gap-y-3"
       @submit.prevent="submitForm"
     >
       <h1 class="text-center text-2xl font-semibold md:text-4xl mt-5">
@@ -91,8 +91,8 @@
       </div>
       <MainButton
         :label="t('label.create_btn')"
-        class="text-base text-white bg-blue-800 w-full h-12 font-bold rounded-md shadow-lg shadow-blue-400 flex
-         hover:shadow-2xl ease-in-out duration-1000 mx-auto my-6 md:h-14 md:text-xl"
+        class="text-base text-white bg-blue-800 w-full h-10 font-bold rounded-md shadow-lg shadow-blue-400 flex
+         hover:shadow-2xl ease-in-out duration-1000 mx-auto my-2"
         data-test="submit-button"
       />
     </form>

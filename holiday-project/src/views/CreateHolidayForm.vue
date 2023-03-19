@@ -83,8 +83,8 @@ import {helpers, required, requiredIf} from "@vuelidate/validators";
 import SuccessIcon from "../assets/Holidays-Icons/SuccessIcon.vue";
 import {useRouter} from "vue-router";
 import ModalWrapper from "../components/ModalWrapper.vue";
-import { useHolidayStore } from "src/store/holiday";
-import { Holiday } from "src/domain/holiday";
+import { useHolidayStore } from "../store/holiday";
+import { Holiday } from "../domain/holiday";
 
 const router = useRouter();
 defineProps({

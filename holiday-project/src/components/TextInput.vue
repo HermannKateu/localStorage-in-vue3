@@ -6,7 +6,7 @@
     <div class="relative">
       <input
           :class="[
-          'outline-none w-full h-14 pl-12 text-black-400 text-base border md:h-16 bg-gray-100 rounded-md ease-in-out duration-500 shadow-sm shadow-gray-200 hover:shadow-gray-600 hover:shadow-md',
+          'outline-none w-full h-10 pl-12 text-black-400 text-base border md:h-12 bg-gray-100 rounded-md ease-in-out duration-500 shadow-sm shadow-gray-200 hover:shadow-gray-600 hover:shadow-md',
           errors.length > 0
             ? 'border-red-900 focus:shadow-red'
             : 'border-gray focus:border-gray focus:shadow-gray',
@@ -18,7 +18,7 @@
           @input="$emit('update:modelValue', $event.target.value)"
       />
       <WrapperIcon
-          class="w-11 h-4 absolute top-5 left-0 md:top-6"
+          class="w-11 h-4 absolute top-3 left-2 md:top-4"
           fill="gray"
       />
     </div>

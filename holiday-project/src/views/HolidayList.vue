@@ -30,7 +30,7 @@
             data-test="holiday-card"
             :key="index"
             :holiday="holiday"
-            @click="goTo(index)"
+            @click="goTo(holiday.id)"
         />
     </div>
   </div>
@@ -43,11 +43,11 @@ import {onBeforeMount, ref} from "vue";
 import {useRouter} from "vue-router";
 import BlankWrapper from "../components/BlankWrapper.vue";
 import {useI18n} from "vue-i18n";
-import {Holiday} from "../domain/holiday";
+import  { Holiday } from "../domain/holiday";
 import {useHolidayStore} from "../store/holiday";
 
 const router = useRouter();
-const holidays = ref<Holiday[]>([]);
+const holidays = ref<Array<Holiday>>([]);
 
 const { t } = useI18n({
   useScope: "global",

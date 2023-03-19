@@ -45,7 +45,7 @@ export const useHolidayStore = defineStore({
             }
         },
 
-        async createdelteHoliday(id: number): Promise<void>{
+        async deleteHoliday(id: number): Promise<void>{
             try {
                  await HolidayService.deleteHoliday({
                     id,

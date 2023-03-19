@@ -1,9 +1,10 @@
 <template>
   <div
-    class="h-screen bg-gray-100 md:bg-white flex flex-col md:justify-center md:py-16 md:h-fit"
+    class="min-h-screen bg-gray-100 md:bg-white flex flex-col md:items-center md:py-16 md:max-h-screen"
   >
+  <div class="flex flex-col">
     <div
-      class="text-base md:text-xl font-bold flex border border-gray-100 mb-8 py-2 leading-tight text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white w-[550px]"
+      class="text-base md:text-xl font-bold flex border border-gray-100 py-2 leading-tight text-center rounded-md mx-auto px-2 shadow-lg shadow-gray w-11/12 px-4 bg-white w-[550px]"
       v-if="errorStore.email"
       data-test="login-error-msg"
     >
@@ -16,11 +17,11 @@
       </span>
     </div>
     <form
-      class="px-4 w-full flex flex-col mx-auto md:px-8 md:border md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[550px]"
+      class="px-4 w-full flex flex-col mx-auto md:px-8 md:border md:border-white-200 md:shadow-lg md:shadow-gray-500 md:rounded-md md:w-[450px]"
       @submit.prevent="loginUser"
     >
       <div
-        class="flex text-gray-800 flex-col font-WorkSans gap-y-1 pt-16 mb-4 md:items-center md:pt-18 md:gap-y-0"
+        class="flex text-gray-800 flex-col font-WorkSans gap-y-1 pt-16 mb-4 md:items-center md:pt-6 md:gap-y-0"
       >
         <h1 class="font-semibold text-3xl md:text-5xl" data-test="title">
           {{ t("login_lbl") }}
@@ -58,7 +59,7 @@
       </div>
       <MainButton
         :label="t('login_lbl')?.toUpperCase()"
-        class="text-xl shadow-sm shadow-blue-600 my-12 flex flex-col justify-center items-center font-bold bg-blue-100 font-WorkSans uppercase rounded-md w-full text-center text-white h-12"
+        class="text-xl shadow-sm shadow-blue-600 my-2 flex flex-col justify-center items-center font-bold bg-blue-100 font-WorkSans uppercase rounded-md w-full text-center text-white h-10"
         data-test="login-button"
       />
       <span
@@ -69,6 +70,7 @@
         {{ t("sign-up.title_lbl") }}
       </span>
     </form>
+  </div>
   </div>
 </template>
 

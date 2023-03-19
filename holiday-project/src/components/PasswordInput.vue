@@ -6,7 +6,7 @@
     <div class="relative">
       <input
         :class="[
-          'w-full my-1 h-14 pl-12 text-black-400 text-base border outline-none bg-gray-100 rounded-md ease-in-out duration-500 shadow-sm shadow-gray-200 hover:shadow-gray-600 hover:shadow-md md:h-16',
+          'w-full my-1 h-10 pl-12 text-black-400 text-base border outline-none bg-gray-100 rounded-md ease-in-out duration-500 shadow-sm shadow-gray-200 hover:shadow-gray-600 hover:shadow-md md:h-12',
             errors.length > 0
             ? 'border-red-900 focus:shadow-red'
             : 'border-gray focus:border-gray focus:shadow-gray',
@@ -18,17 +18,17 @@
         @input="$emit('update:modelValue', $event.target.value)"
       />
       <span
-          class="absolute top-5 left-0 md:top-6 cursor-pointer flex w-fit"
+          class="absolute top-4 left-1 md:top-5 cursor-pointer flex w-fit"
           @click="type = !type"
       >
         <LockIcon
-            class="w-12 h-5"
+            class="w-12 h-4"
             fill="gray"
             v-if="type"
         />
         <Unlock
             v-else
-            class="w-12 h-5"
+            class="w-12 h-4"
             fill="gray"
         />
       </span>
