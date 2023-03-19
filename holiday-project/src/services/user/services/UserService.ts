@@ -15,20 +15,10 @@ export class UserService {
      * @returns UserDTO successful operation
      * @throws ApiError
      */
-    public static getUser({
-        fieldsToExtractCode,
-    }: {
-        /**
-         * specify the fields that will be present in the response
-         */
-        fieldsToExtractCode: string,
-    }): CancelablePromise<UserDTO> {
+    public static getUser(): CancelablePromise<UserDTO> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user',
-            query: {
-                'fieldsToExtractCode': fieldsToExtractCode,
-            },
         });
     }
 

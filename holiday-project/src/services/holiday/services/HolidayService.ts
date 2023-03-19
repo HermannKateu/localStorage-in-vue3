@@ -15,20 +15,10 @@ export class HolidayService {
      * @returns HolidayDTO successful operation
      * @throws ApiError
      */
-    public static getAllHolidays({
-        fieldsToExtractCode,
-    }: {
-        /**
-         * specify the fields that will be present on the response
-         */
-        fieldsToExtractCode: string,
-    }): CancelablePromise<Array<HolidayDTO>> {
+    public static getAllHolidays(): CancelablePromise<Array<HolidayDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/',
-            query: {
-                'fieldsToExtractCode': fieldsToExtractCode,
-            },
         });
     }
 
@@ -40,25 +30,17 @@ export class HolidayService {
      */
     public static getHolidayById({
         id,
-        fieldsToExtractCode,
     }: {
         /**
          * the holiday's id to get
          */
         id: string,
-        /**
-         * specify the fields that will be present the response
-         */
-        fieldsToExtractCode: string,
     }): CancelablePromise<HolidayDTO> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/{id}',
             path: {
                 'id': id,
-            },
-            query: {
-                'fieldsToExtractCode': fieldsToExtractCode,
             },
         });
     }

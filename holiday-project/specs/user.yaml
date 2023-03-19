@@ -14,13 +14,6 @@ paths:
       summary: Fetch a User by email
       description: Fetch a User by email
       operationId: getUser
-      parameters:
-        - name: fieldsToExtractCode
-          in: query
-          required: true
-          schema:
-            type: string
-          description: specify the fields that will be present in the response
       responses:
         200:
           description: successful operation
