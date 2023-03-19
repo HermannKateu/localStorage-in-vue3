@@ -128,7 +128,7 @@ const v$ = useVuelidate(rules, loginInformation, {
 const loginUser = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid) {
-    await useAuthenticationStore().connectUser(new User({
+    const token = await useAuthenticationStore().connectUser(new User({
       email: loginInformation.email,
       password: loginInformation.password
     }));
@@ -142,6 +142,7 @@ const loginUser = async (): Promise<void> => {
       }
       return;
     }
+    localStorage.setItem("token", JSON.stringify(token))
     await router.push("/home");
   }
 };

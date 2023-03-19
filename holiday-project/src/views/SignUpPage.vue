@@ -173,7 +173,7 @@ const errorStore = computed(() => useErrorStore().error);
 const submitForm = async (): Promise<void> => {
   const isFormValid = await v$.value.$validate();
   if (isFormValid){
-    await useAuthenticationStore().createUser(new User({
+    const token = await useAuthenticationStore().createUser(new User({
       email: singUpData.email,
       password: singUpData.confirmPassword,
       lastName: singUpData.lastname,
@@ -184,6 +184,7 @@ const submitForm = async (): Promise<void> => {
         Object.assign($externalResults, { email: t(errorStore.value.email) });
       return;
     }
+    localStorage.setItem("token", JSON.stringify(token))
     await router.push("/home");
   }
 };

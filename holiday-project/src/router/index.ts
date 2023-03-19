@@ -4,11 +4,7 @@ import LoginPage from "../views/LoginPage.vue";
 
 import "vue-router";
 declare module "vue-router" {
-  interface RouteMeta {
-    menuItem: string;
-    isPublic?: boolean;
-    allowedRoles?: string[];
-  }
+  interface RouteMeta {}
 }
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
